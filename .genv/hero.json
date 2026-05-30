@@ -1,0 +1,38 @@
+[
+  {
+    "id": "2b472d46-a061-423d-8a0f-e5d78b244715",
+    "status": "completed",
+    "display_name": "Seedance 2.0",
+    "job_set_type": "seedance_2_0",
+    "result_url": "https://d8j0ntlcm91z4.cloudfront.net/user_32OktNb9cAR32v9MrNWvJ9X6FSS/hf_20260524_144624_2b472d46-a061-423d-8a0f-e5d78b244715.mp4",
+    "created_at": 1779633984.268932,
+    "params": {
+      "width": 1280,
+      "height": 720,
+      "prompt": "Subtle cinematic motion: the synthetic human breathes softly and blinks once, faint volumetric haze drifts across frame, very slow gentle push-in, violet and amber rim light shimmers, photoreal, minimal elegant movement, premium",
+      "genre": "drama",
+      "medias": [
+        {
+          "data": {
+            "id": "efd1bb6a-d6a2-4b43-92c3-b86a8bd4be1a",
+            "url": "https://d2ol7oe51mr4n9.cloudfront.net/user_32OktNb9cAR32v9MrNWvJ9X6FSS/efd1bb6a-d6a2-4b43-92c3-b86a8bd4be1a_resize.jpg",
+            "type": "media_input"
+          },
+          "role": "start_image"
+        }
+      ],
+      "duration": 5,
+      "resolution": "720p",
+      "aspect_ratio": "16:9",
+      "generate_audio": true,
+      "multi_shots": false,
+      "multi_shot_mode": "custom",
+      "multi_prompt": [],
+      "speedramp": "auto",
+      "reference_elements": [],
+      "prompt_language": "en",
+      "mode": "std",
+      "model": "seedance_2_0"
+    }
+  }
+]

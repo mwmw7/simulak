@@ -1,0 +1,21 @@
+[
+  {
+    "id": "086794a9-24c0-4c81-a074-a53afca0ec8b",
+    "status": "completed",
+    "display_name": "GPT Image 2",
+    "job_set_type": "imagegen_2_0",
+    "result_url": "https://d8j0ntlcm91z4.cloudfront.net/user_32OktNb9cAR32v9MrNWvJ9X6FSS/hf_20260524_131128_086794a9-24c0-4c81-a074-a53afca0ec8b.png",
+    "created_at": 1779628288.794958,
+    "params": {
+      "width": 1744,
+      "height": 2336,
+      "prompt": "Ultra-photorealistic high-fashion portrait of an androgynous synthetic supermodel, ethereal flawless features, avant-garde styling, dark background, neon violet and yellow accent light, futuristic premium editorial, no text",
+      "medias": [],
+      "aspect_ratio": "3:4",
+      "quality": "high",
+      "resolution": "2k",
+      "model": "videotape-alpha",
+      "reference_elements": []
+    }
+  }
+]

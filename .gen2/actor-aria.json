@@ -1,0 +1,21 @@
+[
+  {
+    "id": "f6a72642-86ab-4c53-a2a6-c50040b19acb",
+    "status": "completed",
+    "display_name": "GPT Image 2",
+    "job_set_type": "imagegen_2_0",
+    "result_url": "https://d8j0ntlcm91z4.cloudfront.net/user_32OktNb9cAR32v9MrNWvJ9X6FSS/hf_20260524_150221_f6a72642-86ab-4c53-a2a6-c50040b19acb.png",
+    "created_at": 1779634941.001841,
+    "params": {
+      "width": 880,
+      "height": 1168,
+      "prompt": "Ultra-photorealistic editorial portrait of a strikingly beautiful Korean synthetic actress in her mid 20s, flawless luminous K-beauty skin, confident direct gaze, high fashion magazine cover styling, dark studio background, violet and amber accent lighting, premium cinematic, no text",
+      "medias": [],
+      "aspect_ratio": "3:4",
+      "quality": "medium",
+      "resolution": "1k",
+      "model": "videotape-alpha",
+      "reference_elements": []
+    }
+  }
+]

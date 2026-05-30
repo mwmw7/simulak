@@ -1,0 +1,17 @@
+[
+  {
+    "id": "4c1aa76f-404e-401b-a54d-6cb04d44656d",
+    "status": "completed",
+    "display_name": "Z Image",
+    "job_set_type": "z_image",
+    "result_url": "https://d8j0ntlcm91z4.cloudfront.net/user_32OktNb9cAR32v9MrNWvJ9X6FSS/hf_20260524_160926_4c1aa76f-404e-401b-a54d-6cb04d44656d.png",
+    "created_at": 1779638966.906737,
+    "params": {
+      "width": 2048,
+      "height": 1536,
+      "prompt": "Photorealistic portrait of a confident Korean man in his early 30s, refined modern professional, warm approachable slight smile, sophisticated grooming, dark studio background, premium soft lighting, no text",
+      "aspect_ratio": "4:3",
+      "batch_size": 1
+    }
+  }
+]

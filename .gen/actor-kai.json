@@ -1,0 +1,21 @@
+[
+  {
+    "id": "09edcc62-3011-4bb3-8f52-5ca9e939badb",
+    "status": "completed",
+    "display_name": "GPT Image 2",
+    "job_set_type": "imagegen_2_0",
+    "result_url": "https://d8j0ntlcm91z4.cloudfront.net/user_32OktNb9cAR32v9MrNWvJ9X6FSS/hf_20260524_131129_09edcc62-3011-4bb3-8f52-5ca9e939badb.png",
+    "created_at": 1779628289.633559,
+    "params": {
+      "width": 1744,
+      "height": 2336,
+      "prompt": "Ultra-photorealistic editorial portrait of a handsome synthetic male actor, sharp jawline, intense quiet expression, sleek modern minimal styling, dark studio backdrop with subtle purple and gold rim light, premium cinematic fashion photography, no text",
+      "medias": [],
+      "aspect_ratio": "3:4",
+      "quality": "high",
+      "resolution": "2k",
+      "model": "videotape-alpha",
+      "reference_elements": []
+    }
+  }
+]

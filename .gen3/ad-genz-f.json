@@ -1,0 +1,17 @@
+[
+  {
+    "id": "da118224-47aa-4660-bbd2-609c8e090f94",
+    "status": "completed",
+    "display_name": "Z Image",
+    "job_set_type": "z_image",
+    "result_url": "https://d8j0ntlcm91z4.cloudfront.net/user_32OktNb9cAR32v9MrNWvJ9X6FSS/hf_20260524_160840_da118224-47aa-4660-bbd2-609c8e090f94.png",
+    "created_at": 1779638920.419468,
+    "params": {
+      "width": 2048,
+      "height": 1536,
+      "prompt": "Photorealistic portrait of a fresh young Korean Gen-Z woman in her early 20s, trendy streetwear, natural radiant beauty, friendly approachable expression, dark studio background, soft modern lighting, premium, no text",
+      "aspect_ratio": "4:3",
+      "batch_size": 1
+    }
+  }
+]

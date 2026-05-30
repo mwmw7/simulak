@@ -1,0 +1,25 @@
+{
+  "name": "simulak-entertainment",
+  "version": "1.0.0",
+  "description": "Simulak Entertainment — 사람 없는 완벽함. AI 엔터테인먼트 랜딩 페이지 (AngularJS + Express).",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node server.js"
+  },
+  "keywords": [
+    "ai",
+    "entertainment",
+    "simulak",
+    "angularjs",
+    "express"
+  ],
+  "author": "Simulak Entertainment",
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.19.2"
+  },
+  "devDependencies": {
+    "puppeteer-core": "^25.0.4"
+  }
+}

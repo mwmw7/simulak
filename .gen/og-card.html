@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8" />
+<link href="https://fonts.googleapis.com/css2?family=Raleway:wght@400;800;900&display=swap" rel="stylesheet" />
+<style>
+  * { margin:0; padding:0; box-sizing:border-box; }
+  html,body { width:1200px; height:630px; overflow:hidden; }
+  .card { position:relative; width:1200px; height:630px; background:#0c0c0c;
+    font-family:"Raleway","Noto Sans CJK KR",sans-serif; }
+  .bg { position:absolute; inset:0; background-image:url("file:///home/branden/simula_entertainment/assets-src/hero.png");
+    background-size:cover; background-position:58% 30%; filter:contrast(1.05) saturate(1.08); }
+  .scrim { position:absolute; inset:0;
+    background:
+      linear-gradient(90deg, rgba(12,12,12,0.92) 0%, rgba(12,12,12,0.55) 38%, rgba(12,12,12,0) 62%),
+      linear-gradient(0deg, rgba(12,12,12,0.95) 0%, rgba(12,12,12,0.2) 40%, rgba(12,12,12,0) 70%),
+      radial-gradient(60% 60% at 78% 32%, rgba(155,89,182,0.22), transparent 70%); }
+  .orb { position:absolute; width:420px; height:420px; border-radius:50%; filter:blur(90px);
+    background:#9b59b6; opacity:.35; right:-120px; top:-120px; }
+  .content { position:absolute; left:74px; bottom:70px; z-index:2; }
+  .eyebrow { display:flex; align-items:center; gap:12px; color:#F1C40F; font-weight:800;
+    letter-spacing:.32em; font-size:26px; margin-bottom:16px; }
+  .glyph { color:#c07be0; font-size:30px; }
+  .title { color:#fff; font-weight:900; font-size:104px; line-height:.98; letter-spacing:-0.01em;
+    text-shadow:0 6px 40px rgba(0,0,0,.6); }
+  .accent { width:120px; height:5px; margin:26px 0 22px;
+    background:linear-gradient(90deg,#c07be0,#9b59b6 40%,#F1C40F); border-radius:4px; }
+  .sub { color:#EDEAF2; font-weight:400; font-size:32px; letter-spacing:.01em; }
+  .url { position:absolute; right:64px; bottom:40px; z-index:2; color:#8d8796; font-size:22px;
+    letter-spacing:.18em; font-weight:800; }
+</style>
+</head>
+<body>
+  <div class="card">
+    <div class="bg"></div>
+    <div class="scrim"></div>
+    <div class="orb"></div>
+    <div class="content">
+      <div class="eyebrow"><span class="glyph">◈</span> SIMULA ENTERTAINMENT</div>
+      <div class="title">완벽한 환영</div>
+      <div class="accent"></div>
+      <div class="sub">사람 없는 완벽함 · 합성 배우 · 가상 광고 모델 · AI 음악</div>
+    </div>
+    <div class="url">SIMULA.AI</div>
+  </div>
+</body>
+</html>

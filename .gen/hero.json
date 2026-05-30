@@ -1,0 +1,21 @@
+[
+  {
+    "id": "2b6dd0df-e759-4f50-9be3-ee0c12e6ddb1",
+    "status": "completed",
+    "display_name": "GPT Image 2",
+    "job_set_type": "imagegen_2_0",
+    "result_url": "https://d8j0ntlcm91z4.cloudfront.net/user_32OktNb9cAR32v9MrNWvJ9X6FSS/hf_20260524_131129_2b6dd0df-e759-4f50-9be3-ee0c12e6ddb1.png",
+    "created_at": 1779628289.223952,
+    "params": {
+      "width": 2688,
+      "height": 1520,
+      "prompt": "Ultra-photorealistic cinematic portrait of a flawless synthetic human emerging from deep shadow, half the face lit by a thin rim of violet and amber light, hyperreal perfect skin with a subtle uncanny synthetic sheen, dark charcoal background, volumetric haze, premium futuristic editorial, shallow depth of field, 85mm, dramatic chiaroscuro, no text",
+      "medias": [],
+      "aspect_ratio": "16:9",
+      "quality": "high",
+      "resolution": "2k",
+      "model": "videotape-alpha",
+      "reference_elements": []
+    }
+  }
+]

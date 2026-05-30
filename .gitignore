@@ -1,0 +1,16 @@
+# dependencies
+node_modules/
+
+# secrets — Cloudflare Tunnel connector token (do NOT commit)
+.tunnel-token
+
+# internal infra/deploy docs — contain account/zone/tunnel IDs (keep local, not for public repo)
+DEPLOY.md
+EMAIL.md
+
+# logs / OS / editor
+*.log
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/

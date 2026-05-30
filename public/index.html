@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="ko" ng-app="simulakApp">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SIMULAK ENTERTAINMENT — 완벽한 환영</title>
+  <meta name="description" content="합성 배우, 가상 광고 모델, AI 음악. 사람 없는 세상의 새로운 즐거움. 현실을 초월하는 AI 엔터테인먼트의 미래." />
+
+  <!-- Open Graph (KakaoTalk / Facebook / etc.) — __BASE__ 는 서버가 요청 호스트로 치환 -->
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="SIMULAK ENTERTAINMENT" />
+  <meta property="og:title" content="SIMULAK ENTERTAINMENT — 완벽한 환영" />
+  <meta property="og:description" content="사람 없는 완벽함. 합성 배우 · 가상 광고 모델 · AI 음악 — 현실을 초월하는 AI 엔터테인먼트의 미래." />
+  <meta property="og:url" content="__BASE__/" />
+  <meta property="og:image" content="__BASE__/assets/og-image.png" />
+  <meta property="og:image:secure_url" content="__BASE__/assets/og-image.png" />
+  <meta property="og:image:type" content="image/png" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta property="og:image:alt" content="SIMULAK ENTERTAINMENT — 합성 배우" />
+  <meta property="og:locale" content="ko_KR" />
+
+  <!-- Twitter / X -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="SIMULAK ENTERTAINMENT — 완벽한 환영" />
+  <meta name="twitter:description" content="사람 없는 완벽함. 합성 배우 · 가상 광고 모델 · AI 음악." />
+  <meta name="twitter:image" content="__BASE__/assets/og-image.png" />
+  <meta name="theme-color" content="#0c0c0c" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@200;300;400;600;800;900&family=Open+Sans:wght@300;400;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/styles.css?v=__V__" />
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90' fill='%239B59B6'>◈</text></svg>" />
+</head>
+
+<body ng-controller="MainController as vm" ng-class="{'is-loaded': vm.loaded}">
+
+  <!-- 필름 그레인 / 노이즈 오버레이 -->
+  <div class="grain" aria-hidden="true"></div>
+  <!-- 배경 글로우 오브 -->
+  <div class="orb orb--violet" aria-hidden="true"></div>
+  <div class="orb orb--amber" aria-hidden="true"></div>
+  <div class="orb orb--blue" aria-hidden="true"></div>
+
+  <!-- 부트 로더 -->
+  <div class="boot" ng-if="!vm.loaded" aria-hidden="true">
+    <div class="boot__glyph">◈</div>
+    <div class="boot__text">SIMULAK</div>
+  </div>
+
+  <!-- 네비게이션 -->
+  <header class="nav">
+    <a href="#top" class="nav__brand" smooth-scroll>
+      <span class="nav__glyph">◈</span>
+      <span class="nav__name">{{ vm.content.brand.name }}</span>
+      <span class="nav__sep">/</span>
+      <span class="nav__suffix">{{ vm.content.brand.suffix }}</span>
+    </a>
+    <nav class="nav__links">
+      <a href="#philosophy" smooth-scroll>철학</a>
+      <a href="#stars" smooth-scroll>Synth Stars</a>
+      <a href="#anthems" smooth-scroll>A.I. Anthems</a>
+      <a href="#ads" smooth-scroll>Ads</a>
+    </nav>
+    <a href="#contact" class="nav__cta" smooth-scroll>{{ vm.content.hero.cta }}</a>
+  </header>
+
+  <!-- HERO -->
+  <section id="top" class="hero">
+    <div class="hero__media" reveal>
+      <media-loop cls="hero__img" poster="{{ vm.content.hero.image }}" src="{{ vm.content.hero.video }}"></media-loop>
+      <div class="hero__img-glow"></div>
+    </div>
+    <div class="hero__content">
+      <span class="hero__eyebrow" reveal>{{ vm.content.hero.eyebrow }}</span>
+      <h1 class="hero__title" reveal>
+        <span class="grad">{{ vm.content.hero.h1 }}</span>
+        <small>{{ vm.content.hero.h1sub }}</small>
+      </h1>
+      <p class="hero__sub" reveal>{{ vm.content.hero.h2 }}</p>
+      <div class="hero__actions" reveal>
+        <a href="#contact" class="btn btn--primary" smooth-scroll>{{ vm.content.hero.cta }}</a>
+        <a href="#stars" class="btn btn--ghost" smooth-scroll>합성 배우 보기 →</a>
+      </div>
+    </div>
+    <div class="hero__scroll">SCROLL <span>↓</span></div>
+  </section>
+
+  <!-- 메트릭 스트립 -->
+  <section class="metrics">
+    <div class="metric" ng-repeat="m in vm.content.metrics" reveal>
+      <span class="metric__value grad">{{ m.value }}<i>{{ m.suffix }}</i></span>
+      <span class="metric__label">{{ m.label }}</span>
+    </div>
+  </section>
+
+  <!-- PHILOSOPHY -->
+  <section id="philosophy" class="section section--philosophy">
+    <div class="section__head" reveal>
+      <span class="section__kicker">PHILOSOPHY</span>
+      <h2 class="section__title">복제가 원본을 넘어서는 순간</h2>
+    </div>
+    <div class="phil-grid">
+      <article class="phil" ng-repeat="p in vm.content.philosophy" reveal>
+        <span class="phil__no">{{ p.no }}</span>
+        <h3 class="phil__title">{{ p.title }}</h3>
+        <p class="phil__body">{{ p.body }}</p>
+      </article>
+    </div>
+  </section>
+
+  <!-- SYNTH STARS (합성 배우 포트폴리오) -->
+  <section id="stars" class="section section--stars">
+    <div class="section__head" reveal>
+      <span class="section__kicker">{{ vm.content.services[0].kicker }}</span>
+      <h2 class="section__title">{{ vm.content.services[0].name }}</h2>
+      <ul class="section__points">
+        <li ng-repeat="pt in vm.content.services[0].points">{{ pt }}</li>
+      </ul>
+    </div>
+    <div class="stars-grid">
+      <article class="star" ng-repeat="s in vm.content.synthStars" reveal
+               ng-mouseenter="vm.hover = s.name" ng-mouseleave="vm.hover = null">
+        <div class="star__media">
+          <media-loop poster="{{ s.image }}" src="{{ s.video }}"></media-loop>
+          <span class="star__badge">● {{ s.status }}</span>
+        </div>
+        <div class="star__info">
+          <div class="star__row">
+            <h3 class="star__name">{{ s.name }}</h3>
+            <span class="star__role">{{ s.role }}</span>
+          </div>
+          <div class="star__tags">
+            <span ng-repeat="t in s.tags">{{ t }}</span>
+          </div>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <!-- A.I. ANTHEMS (음악 플레이어) -->
+  <section id="anthems" class="section section--anthems">
+    <div class="section__head" reveal>
+      <span class="section__kicker">{{ vm.content.services[1].kicker }}</span>
+      <h2 class="section__title">{{ vm.content.services[1].name }}</h2>
+    </div>
+
+    <div class="player" reveal>
+      <div class="player__art">
+        <media-loop poster="{{ vm.current.image }}" src="{{ vm.current.video }}"></media-loop>
+        <div class="player__art-glow" ng-class="{'is-playing': vm.playing}"></div>
+      </div>
+
+      <div class="player__main">
+        <div class="player__meta">
+          <span class="player__artist">{{ vm.current.name }}</span>
+          <h3 class="player__track">{{ vm.current.track }}</h3>
+          <span class="player__genre">{{ vm.current.genre }} · {{ vm.current.bpm }} BPM</span>
+        </div>
+
+        <div class="waveform" ng-class="{'is-playing': vm.playing}">
+          <span ng-repeat="bar in vm.bars track by $index" ng-style="{height: bar + '%'}"></span>
+        </div>
+
+        <div class="player__controls">
+          <button class="player__btn" ng-click="vm.prevTrack()" aria-label="이전">⟨⟨</button>
+          <button class="player__btn player__btn--play" ng-click="vm.togglePlay()" aria-label="재생">
+            <span ng-if="!vm.playing">▶</span><span ng-if="vm.playing">❚❚</span>
+          </button>
+          <button class="player__btn" ng-click="vm.nextTrack()" aria-label="다음">⟩⟩</button>
+          <div class="player__hint">{{ vm.playing ? 'AI 합성 사운드 재생 중…' : '재생 버튼을 눌러 합성 음원을 들어보세요' }}</div>
+        </div>
+
+        <div class="player__list">
+          <button class="player__list-item" ng-repeat="a in vm.content.artists"
+                  ng-class="{'is-active': a.name === vm.current.name}"
+                  ng-click="vm.selectTrack($index)">
+            <span class="dot"></span>
+            <span class="t">{{ a.track }}</span>
+            <span class="a">{{ a.name }}</span>
+          </button>
+        </div>
+      </div>
+    </div>
+    <ul class="section__points section__points--center" reveal>
+      <li ng-repeat="pt in vm.content.services[1].points">{{ pt }}</li>
+    </ul>
+  </section>
+
+  <!-- HYPER-TARGETED ADS -->
+  <section id="ads" class="section section--ads">
+    <div class="ads-wrap" reveal>
+      <div class="ads-copy">
+        <span class="section__kicker">{{ vm.content.services[2].kicker }}</span>
+        <h2 class="section__title">{{ vm.content.services[2].name }}</h2>
+        <ul class="section__points">
+          <li ng-repeat="pt in vm.content.services[2].points">{{ pt }}</li>
+        </ul>
+        <a href="#contact" class="btn btn--primary" smooth-scroll>캠페인 시작하기</a>
+      </div>
+      <div class="ad-console" ng-class="'grade--' + vm.target.grade">
+        <div class="ad-console__screen">
+          <img class="ad-creative" ng-src="{{ vm.target.image }}" alt="{{ vm.target.seg }} 광고 크리에이티브" />
+          <div class="ad-console__duotone"></div>
+          <div class="ad-console__hud">
+            <span class="ad-console__live">● LIVE RENDER</span>
+            <span class="ad-console__seg">{{ vm.target.seg }}</span>
+          </div>
+          <div class="ad-console__headline">{{ vm.target.headline }}</div>
+        </div>
+        <div class="ad-console__segs">
+          <button class="seg-chip" ng-repeat="t in vm.content.targeting"
+                  ng-class="{'is-active': $index === vm.tIndex}" ng-click="vm.selectTarget($index)">
+            {{ t.seg }}
+          </button>
+        </div>
+        <div class="ad-console__metrics">
+          <div class="adm"><span class="adm__v grad">{{ vm.target.ctr }}</span><span class="adm__l">CTR</span></div>
+          <div class="adm"><span class="adm__v grad">{{ vm.target.conv }}</span><span class="adm__l">전환율</span></div>
+          <div class="adm"><span class="adm__v grad">{{ vm.target.roi }}</span><span class="adm__l">ROI</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT / FOOTER -->
+  <footer id="contact" class="footer">
+    <div class="footer__cta" reveal>
+      <span class="section__kicker">START YOUR ILLUSION</span>
+      <h2 class="footer__title grad">사람 없는 완벽함을<br />당신의 브랜드에.</h2>
+      <a ng-href="mailto:{{ vm.content.contact.email }}" class="btn btn--primary btn--lg">{{ vm.content.contact.email }}</a>
+    </div>
+    <div class="footer__bar">
+      <span class="footer__brand">◈ {{ vm.content.brand.name }} {{ vm.content.brand.suffix }}</span>
+      <div class="footer__socials">
+        <a href="#" ng-repeat="s in vm.content.contact.socials">{{ s }}</a>
+      </div>
+      <span class="footer__copy">© 2026 — {{ vm.content.brand.tagline }}</span>
+    </div>
+  </footer>
+
+  <!-- AngularJS 1.8 -->
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
+  <script src="js/app.js?v=__V__"></script>
+</body>
+</html>

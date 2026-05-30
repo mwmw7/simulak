@@ -1,0 +1,21 @@
+[
+  {
+    "id": "5e55c87c-c0ea-4a54-ad4b-45eb7e977b3e",
+    "status": "completed",
+    "display_name": "GPT Image 2",
+    "job_set_type": "imagegen_2_0",
+    "result_url": "https://d8j0ntlcm91z4.cloudfront.net/user_32OktNb9cAR32v9MrNWvJ9X6FSS/hf_20260524_150217_5e55c87c-c0ea-4a54-ad4b-45eb7e977b3e.png",
+    "created_at": 1779634937.884384,
+    "params": {
+      "width": 880,
+      "height": 1168,
+      "prompt": "Ultra-photorealistic editorial portrait of a handsome young Korean synthetic male actor, sharp jawline, K-pop idol visuals, intense quiet expression, sleek modern minimal styling, dark studio backdrop with subtle purple and gold rim light, premium cinematic fashion photography, no text",
+      "medias": [],
+      "aspect_ratio": "3:4",
+      "quality": "medium",
+      "resolution": "1k",
+      "model": "videotape-alpha",
+      "reference_elements": []
+    }
+  }
+]

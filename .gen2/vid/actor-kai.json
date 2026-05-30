@@ -1,0 +1,38 @@
+[
+  {
+    "id": "c4541819-71c7-4ee0-8ef6-899b9cd78ec3",
+    "status": "completed",
+    "display_name": "Seedance 2.0",
+    "job_set_type": "seedance_2_0",
+    "result_url": "https://d8j0ntlcm91z4.cloudfront.net/user_32OktNb9cAR32v9MrNWvJ9X6FSS/hf_20260524_151628_c4541819-71c7-4ee0-8ef6-899b9cd78ec3.mp4",
+    "created_at": 1779635788.041734,
+    "params": {
+      "width": 480,
+      "height": 640,
+      "prompt": "Subtle cinematic motion: he breathes, a slow intense gaze shift and faint blink, subtle rim light flicker, photoreal cinematic editorial, minimal premium movement, fixed framing",
+      "genre": "drama",
+      "medias": [
+        {
+          "data": {
+            "id": "d8bf8b19-6534-40a6-9659-49679a7e5150",
+            "url": "https://d2ol7oe51mr4n9.cloudfront.net/user_32OktNb9cAR32v9MrNWvJ9X6FSS/d8bf8b19-6534-40a6-9659-49679a7e5150.png",
+            "type": "media_input"
+          },
+          "role": "start_image"
+        }
+      ],
+      "duration": 5,
+      "resolution": "480p",
+      "aspect_ratio": "3:4",
+      "generate_audio": true,
+      "multi_shots": false,
+      "multi_shot_mode": "custom",
+      "multi_prompt": [],
+      "speedramp": "auto",
+      "reference_elements": [],
+      "prompt_language": "en",
+      "mode": "fast",
+      "model": "seedance_2_0_fast"
+    }
+  }
+]

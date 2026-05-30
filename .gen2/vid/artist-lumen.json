@@ -1,0 +1,38 @@
+[
+  {
+    "id": "44359921-58dc-46c0-b0e9-9d176286dac8",
+    "status": "completed",
+    "display_name": "Seedance 2.0",
+    "job_set_type": "seedance_2_0",
+    "result_url": "https://d8j0ntlcm91z4.cloudfront.net/user_32OktNb9cAR32v9MrNWvJ9X6FSS/hf_20260524_152746_44359921-58dc-46c0-b0e9-9d176286dac8.mp4",
+    "created_at": 1779636466.082595,
+    "params": {
+      "width": 480,
+      "height": 640,
+      "prompt": "Subtle cinematic motion: ethereal music artist breathes calmly, iridescent light particles float and drift, gentle glow pulse, dreamy album-cover aesthetic, minimal movement, fixed framing",
+      "genre": "drama",
+      "medias": [
+        {
+          "data": {
+            "id": "ae7cd76f-8346-4936-aafb-103b80db2e3b",
+            "url": "https://d2ol7oe51mr4n9.cloudfront.net/user_32OktNb9cAR32v9MrNWvJ9X6FSS/ae7cd76f-8346-4936-aafb-103b80db2e3b.png",
+            "type": "media_input"
+          },
+          "role": "start_image"
+        }
+      ],
+      "duration": 5,
+      "resolution": "480p",
+      "aspect_ratio": "3:4",
+      "generate_audio": true,
+      "multi_shots": false,
+      "multi_shot_mode": "custom",
+      "multi_prompt": [],
+      "speedramp": "auto",
+      "reference_elements": [],
+      "prompt_language": "en",
+      "mode": "fast",
+      "model": "seedance_2_0_fast"
+    }
+  }
+]

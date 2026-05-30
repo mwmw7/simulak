@@ -1,0 +1,38 @@
+[
+  {
+    "id": "b7ace807-3ff3-4cbe-88aa-c9b068908bb5",
+    "status": "completed",
+    "display_name": "Seedance 2.0",
+    "job_set_type": "seedance_2_0",
+    "result_url": "https://d8j0ntlcm91z4.cloudfront.net/user_32OktNb9cAR32v9MrNWvJ9X6FSS/hf_20260524_152429_b7ace807-3ff3-4cbe-88aa-c9b068908bb5.mp4",
+    "created_at": 1779636269.349747,
+    "params": {
+      "width": 480,
+      "height": 640,
+      "prompt": "Subtle cinematic motion: the virtual pop star sways slightly to a beat, holographic microphone glows and pulses, stage haze drifts, neon violet and amber lights flicker, dynamic concert energy, photoreal, fixed framing",
+      "genre": "drama",
+      "medias": [
+        {
+          "data": {
+            "id": "cba4c3b9-1ae9-4973-ad8a-b41e931fb007",
+            "url": "https://d2ol7oe51mr4n9.cloudfront.net/user_32OktNb9cAR32v9MrNWvJ9X6FSS/cba4c3b9-1ae9-4973-ad8a-b41e931fb007.png",
+            "type": "media_input"
+          },
+          "role": "start_image"
+        }
+      ],
+      "duration": 5,
+      "resolution": "480p",
+      "aspect_ratio": "3:4",
+      "generate_audio": true,
+      "multi_shots": false,
+      "multi_shot_mode": "custom",
+      "multi_prompt": [],
+      "speedramp": "auto",
+      "reference_elements": [],
+      "prompt_language": "en",
+      "mode": "fast",
+      "model": "seedance_2_0_fast"
+    }
+  }
+]

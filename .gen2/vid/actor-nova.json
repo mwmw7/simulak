@@ -1,0 +1,38 @@
+[
+  {
+    "id": "1b1d9bad-9693-40f2-b24c-7452401fea5a",
+    "status": "completed",
+    "display_name": "Seedance 2.0",
+    "job_set_type": "seedance_2_0",
+    "result_url": "https://d8j0ntlcm91z4.cloudfront.net/user_32OktNb9cAR32v9MrNWvJ9X6FSS/hf_20260524_152015_1b1d9bad-9693-40f2-b24c-7452401fea5a.mp4",
+    "created_at": 1779636015.383204,
+    "params": {
+      "width": 480,
+      "height": 640,
+      "prompt": "Subtle cinematic motion: a slow ethereal head turn and gentle blink, avant-garde poise, faint particles drift, neon violet and yellow shimmer, high fashion editorial, minimal movement, fixed framing",
+      "genre": "drama",
+      "medias": [
+        {
+          "data": {
+            "id": "424c7bd1-8268-4829-818a-30fe1269c010",
+            "url": "https://d2ol7oe51mr4n9.cloudfront.net/user_32OktNb9cAR32v9MrNWvJ9X6FSS/424c7bd1-8268-4829-818a-30fe1269c010.png",
+            "type": "media_input"
+          },
+          "role": "start_image"
+        }
+      ],
+      "duration": 5,
+      "resolution": "480p",
+      "aspect_ratio": "3:4",
+      "generate_audio": true,
+      "multi_shots": false,
+      "multi_shot_mode": "custom",
+      "multi_prompt": [],
+      "speedramp": "auto",
+      "reference_elements": [],
+      "prompt_language": "en",
+      "mode": "fast",
+      "model": "seedance_2_0_fast"
+    }
+  }
+]

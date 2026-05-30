@@ -1,0 +1,21 @@
+[
+  {
+    "id": "4729b98f-449c-4e09-852e-6c63c6ad84dd",
+    "status": "completed",
+    "display_name": "GPT Image 2",
+    "job_set_type": "imagegen_2_0",
+    "result_url": "https://d8j0ntlcm91z4.cloudfront.net/user_32OktNb9cAR32v9MrNWvJ9X6FSS/hf_20260524_131128_4729b98f-449c-4e09-852e-6c63c6ad84dd.png",
+    "created_at": 1779628288.215279,
+    "params": {
+      "width": 1744,
+      "height": 2336,
+      "prompt": "Ultra-photorealistic portrait of a futuristic virtual pop star mid-performance, glowing holographic microphone, neon violet and amber stage light, dark moody atmosphere, shimmering skin, dynamic concert energy, premium music editorial, no text",
+      "medias": [],
+      "aspect_ratio": "3:4",
+      "quality": "high",
+      "resolution": "2k",
+      "model": "videotape-alpha",
+      "reference_elements": []
+    }
+  }
+]

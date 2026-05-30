@@ -1,0 +1,21 @@
+[
+  {
+    "id": "574cc4c0-15e0-479a-89c9-6825f7695e2d",
+    "status": "completed",
+    "display_name": "GPT Image 2",
+    "job_set_type": "imagegen_2_0",
+    "result_url": "https://d8j0ntlcm91z4.cloudfront.net/user_32OktNb9cAR32v9MrNWvJ9X6FSS/hf_20260524_150220_574cc4c0-15e0-479a-89c9-6825f7695e2d.png",
+    "created_at": 1779634940.348571,
+    "params": {
+      "width": 880,
+      "height": 1168,
+      "prompt": "Ultra-photorealistic portrait of a futuristic Korean virtual K-pop star mid-performance, glowing holographic microphone, neon violet and amber stage light, dark moody atmosphere, shimmering skin, dynamic concert energy, premium music editorial, no text",
+      "medias": [],
+      "aspect_ratio": "3:4",
+      "quality": "medium",
+      "resolution": "1k",
+      "model": "videotape-alpha",
+      "reference_elements": []
+    }
+  }
+]

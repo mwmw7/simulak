@@ -1,0 +1,17 @@
+[
+  {
+    "id": "bcb42fbf-3ed2-4e73-972d-8eb4d1c64514",
+    "status": "completed",
+    "display_name": "Z Image",
+    "job_set_type": "z_image",
+    "result_url": "https://d8j0ntlcm91z4.cloudfront.net/user_32OktNb9cAR32v9MrNWvJ9X6FSS/hf_20260524_160925_bcb42fbf-3ed2-4e73-972d-8eb4d1c64514.png",
+    "created_at": 1779638965.870758,
+    "params": {
+      "width": 2048,
+      "height": 1536,
+      "prompt": "Photorealistic portrait of an edgy young Korean man in his late teens, bold streetwear, cool confident vibe, tousled hair, dark background, subtle neon-tinged rim light, no text",
+      "aspect_ratio": "4:3",
+      "batch_size": 1
+    }
+  }
+]

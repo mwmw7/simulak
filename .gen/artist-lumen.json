@@ -1,0 +1,21 @@
+[
+  {
+    "id": "368f2d8d-3ec9-4a80-b840-b4b45d5cc735",
+    "status": "completed",
+    "display_name": "GPT Image 2",
+    "job_set_type": "imagegen_2_0",
+    "result_url": "https://d8j0ntlcm91z4.cloudfront.net/user_32OktNb9cAR32v9MrNWvJ9X6FSS/hf_20260524_131128_368f2d8d-3ec9-4a80-b840-b4b45d5cc735.png",
+    "created_at": 1779628288.792931,
+    "params": {
+      "width": 1744,
+      "height": 2336,
+      "prompt": "Ultra-photorealistic portrait of an ethereal virtual music artist, iridescent makeup, floating glowing light particles, dark background, purple and gold neon glow, cinematic album-cover aesthetic, premium, no text",
+      "medias": [],
+      "aspect_ratio": "3:4",
+      "quality": "high",
+      "resolution": "2k",
+      "model": "videotape-alpha",
+      "reference_elements": []
+    }
+  }
+]

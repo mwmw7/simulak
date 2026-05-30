@@ -1,0 +1,21 @@
+[
+  {
+    "id": "aabcf3a9-be6b-4b31-99ab-85d34d37b471",
+    "status": "completed",
+    "display_name": "GPT Image 2",
+    "job_set_type": "imagegen_2_0",
+    "result_url": "https://d8j0ntlcm91z4.cloudfront.net/user_32OktNb9cAR32v9MrNWvJ9X6FSS/hf_20260524_150218_aabcf3a9-be6b-4b31-99ab-85d34d37b471.png",
+    "created_at": 1779634938.017318,
+    "params": {
+      "width": 880,
+      "height": 1168,
+      "prompt": "Ultra-photorealistic high-fashion portrait of an androgynous Korean synthetic supermodel, ethereal flawless features, avant-garde K-fashion styling, dark background, neon violet and yellow accent light, futuristic premium editorial, no text",
+      "medias": [],
+      "aspect_ratio": "3:4",
+      "quality": "medium",
+      "resolution": "1k",
+      "model": "videotape-alpha",
+      "reference_elements": []
+    }
+  }
+]

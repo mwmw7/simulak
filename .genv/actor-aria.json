@@ -1,0 +1,38 @@
+[
+  {
+    "id": "57ee1479-d683-4b5a-999b-e696adc3ab98",
+    "status": "completed",
+    "display_name": "Seedance 2.0",
+    "job_set_type": "seedance_2_0",
+    "result_url": "https://d8j0ntlcm91z4.cloudfront.net/user_32OktNb9cAR32v9MrNWvJ9X6FSS/hf_20260524_145740_57ee1479-d683-4b5a-999b-e696adc3ab98.mp4",
+    "created_at": 1779634660.529707,
+    "params": {
+      "width": 480,
+      "height": 640,
+      "prompt": "Subtle cinematic motion: she breathes gently, a slight graceful head turn and soft blink, hair catches a faint breeze, violet and amber rim light shimmers, photoreal high-fashion editorial, minimal elegant movement, fixed framing",
+      "genre": "drama",
+      "medias": [
+        {
+          "data": {
+            "id": "782ef692-fa0e-4808-be9a-88d0568027a9",
+            "url": "https://d2ol7oe51mr4n9.cloudfront.net/user_32OktNb9cAR32v9MrNWvJ9X6FSS/782ef692-fa0e-4808-be9a-88d0568027a9_resize.jpg",
+            "type": "media_input"
+          },
+          "role": "start_image"
+        }
+      ],
+      "duration": 5,
+      "resolution": "480p",
+      "aspect_ratio": "3:4",
+      "generate_audio": true,
+      "multi_shots": false,
+      "multi_shot_mode": "custom",
+      "multi_prompt": [],
+      "speedramp": "auto",
+      "reference_elements": [],
+      "prompt_language": "en",
+      "mode": "fast",
+      "model": "seedance_2_0_fast"
+    }
+  }
+]

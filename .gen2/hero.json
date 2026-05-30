@@ -1,0 +1,21 @@
+[
+  {
+    "id": "9107f3ed-ef0a-419f-8e7a-d925412cf42f",
+    "status": "completed",
+    "display_name": "GPT Image 2",
+    "job_set_type": "imagegen_2_0",
+    "result_url": "https://d8j0ntlcm91z4.cloudfront.net/user_32OktNb9cAR32v9MrNWvJ9X6FSS/hf_20260524_150218_9107f3ed-ef0a-419f-8e7a-d925412cf42f.png",
+    "created_at": 1779634938.104378,
+    "params": {
+      "width": 1344,
+      "height": 752,
+      "prompt": "Ultra-photorealistic cinematic portrait of a flawless young Korean synthetic human emerging from deep shadow, half the face lit by a thin rim of violet and amber light, hyperreal perfect Korean skin with a subtle synthetic sheen, dark charcoal background, volumetric haze, premium futuristic K-beauty editorial, shallow depth of field, 85mm, dramatic chiaroscuro, no text",
+      "medias": [],
+      "aspect_ratio": "16:9",
+      "quality": "medium",
+      "resolution": "1k",
+      "model": "videotape-alpha",
+      "reference_elements": []
+    }
+  }
+]
