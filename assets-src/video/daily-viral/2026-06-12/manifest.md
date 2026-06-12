@@ -1,23 +1,23 @@
-# Aria 데일리 바이럴 영상 — 2026-06-12
+# Aria 데일리 바이럴 — 2026-06-12
 
-## 영상 01 — AI 플래시 필터 변신
+## 영상 01 — 나의 지갑한테는 나쁜 소식 (POV 충동구매)
 
-**포맷:** 트랜스포메이션 / Reaction  
-**한국어 스크립트:** 이게 진짜 나야? AI 플래시 필터 하나로 완전 다른 사람 됐잖아, 대박이다!  
-**Higgsfield URL:** https://d8j0ntlcm91z4.cloudfront.net/user_32OktNb9cAR32v9MrNWvJ9X6FSS/hf_20260612_090351_6c69938d-297e-4209-8f98-75363f9f78b7.mp4
-
----
-
-## 영상 02 — 나만의 집으로 귀가 중
-
-**포맷:** POV / "I Am Home" 트렌드  
-**한국어 스크립트:** 미안, 나 오늘 못 가. 나만의 공간으로 귀가 중이거든.  
-**Higgsfield URL:** https://d8j0ntlcm91z4.cloudfront.net/user_32OktNb9cAR32v9MrNWvJ9X6FSS/hf_20260612_090400_9961cdca-0af3-4b17-abad-9fcc8e3dff41.mp4
+**포맷:** POV / Impulse Buy  
+**한국어 스크립트:** 지갑한테는 정말 나쁜 소식인데... 나한테는 완전 최고의 소식이야.  
+**Higgsfield URL:** https://d8j0ntlcm91z4.cloudfront.net/user_32OktNb9cAR32v9MrNWvJ9X6FSS/hf_20260612_090402_c8f405b9-17c6-49d1-920c-ef5971f430eb.mp4
 
 ---
 
-## 영상 03 — 아무도 안 알려주는 것들
+## 영상 02 — 인생이 풍요로운 이유 (Rich in Life 브이로그)
 
-**포맷:** "Things Nobody Tells You" / Storytime  
-**한국어 스크립트:** 아무도 안 알려주는 사실 하나, 지금 이 순간이 네 인생에서 제일 젊은 순간이야.  
-**Higgsfield URL:** https://d8j0ntlcm91z4.cloudfront.net/user_32OktNb9cAR32v9MrNWvJ9X6FSS/hf_20260612_090401_3557476d-fede-48b5-b472-82d2ec8760a3.mp4
+**포맷:** Reflective Vlog / "Rich in Life"  
+**한국어 스크립트:** 돈이 아니라 이런 순간들이 내 인생을 진짜 풍요롭게 만들어. 너도 그렇지 않아?  
+**Higgsfield URL:** https://d8j0ntlcm91z4.cloudfront.net/user_32OktNb9cAR32v9MrNWvJ9X6FSS/hf_20260612_090729_42492336-d4a3-490c-acd0-46b2c685a76f.mp4
+
+---
+
+## 영상 03 — 2000년대 감성 변신 (Y2K 변신)
+
+**포맷:** Transformation / Y2K Nostalgia  
+**한국어 스크립트:** 2000년대 감성으로 완전 변신! 이 필터 진짜 대박이지 않아?  
+**Higgsfield URL:** https://d8j0ntlcm91z4.cloudfront.net/user_32OktNb9cAR32v9MrNWvJ9X6FSS/hf_20260612_090847_ffc08cf6-b93e-49ae-a3b7-27574664ec85.mp4
