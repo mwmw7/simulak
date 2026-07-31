@@ -1,0 +1,36 @@
+User-agent: *
+Allow: /
+Disallow: /api/
+Disallow: /analytics
+
+# AI Crawlers — allow indexing for AI search/discovery
+User-agent: GPTBot
+Allow: /
+Crawl-delay: 2
+
+User-agent: ChatGPT-User
+Allow: /
+Crawl-delay: 2
+
+User-agent: Google-Extended
+Allow: /
+
+User-agent: Amazonbot
+Allow: /
+Crawl-delay: 5
+
+User-agent: anthropic-ai
+Allow: /
+Crawl-delay: 2
+
+User-agent: ClaudeBot
+Allow: /
+Crawl-delay: 2
+
+User-agent: Bytespider
+Crawl-delay: 10
+
+User-agent: CCBot
+Crawl-delay: 10
+
+Sitemap: https://simulak.co/sitemap.xml

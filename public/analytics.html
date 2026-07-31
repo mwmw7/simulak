@@ -1,0 +1,880 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Analytics — Simulak</title>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4"></script>
+<style>
+  :root{
+    --bg:#0f1117;--card:#1a1d29;--card-hover:#1f2235;
+    --ink:#e4e6f0;--sub:#8890a4;--muted:#5a6178;
+    --primary:#6366f1;--primary-light:#818cf8;
+    --green:#10b981;--green-light:#34d399;
+    --red:#ef4444;--amber:#f59e0b;--cyan:#06b6d4;--pink:#ec4899;--purple:#8b5cf6;
+    --border:#2a2d3e;--border-light:#353849;
+    --shadow:0 4px 24px rgba(0,0,0,.3);
+    --radius:14px;
+  }
+  *{box-sizing:border-box;margin:0}
+  body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI','Noto Sans KR',sans-serif;background:var(--bg);color:var(--ink);line-height:1.5;min-height:100vh}
+
+  /* Header */
+  .header{
+    background:linear-gradient(135deg,#1e1b4b 0%,#312e81 50%,#4338ca 100%);
+    padding:20px 28px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px;
+    border-bottom:1px solid rgba(255,255,255,.08);
+  }
+  .header h1{font-size:20px;font-weight:800;color:#fff;display:flex;align-items:center;gap:10px}
+  .header .badge{background:var(--green);padding:3px 10px;border-radius:12px;font-size:11px;font-weight:700;color:#fff;animation:pulse 2s infinite}
+  .header .realtime-count{font-size:13px;color:rgba(255,255,255,.7);margin-left:8px}
+  .header a{color:rgba(255,255,255,.6);text-decoration:none;font-size:13px;transition:color .2s}
+  .header a:hover{color:#fff}
+  @keyframes pulse{0%,100%{opacity:1}50%{opacity:.6}}
+
+  /* Controls */
+  .controls{padding:18px 28px;display:flex;gap:8px;flex-wrap:wrap}
+  .period-btn{
+    padding:7px 16px;border:1px solid var(--border);border-radius:10px;
+    background:var(--card);cursor:pointer;font-size:13px;font-weight:600;
+    color:var(--sub);transition:all .2s;
+  }
+  .period-btn:hover{border-color:var(--primary);color:var(--primary-light)}
+  .period-btn.active{background:var(--primary);color:#fff;border-color:var(--primary)}
+
+  .wrap{max-width:1360px;margin:0 auto;padding:0 28px 50px}
+
+  /* KPI Row */
+  .kpi-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:14px;margin-bottom:22px}
+  .kpi{
+    background:var(--card);border:1px solid var(--border);border-radius:var(--radius);
+    padding:18px;transition:transform .2s,box-shadow .2s;
+  }
+  .kpi:hover{transform:translateY(-2px);box-shadow:var(--shadow)}
+  .kpi .label{font-size:11px;color:var(--sub);font-weight:700;text-transform:uppercase;letter-spacing:.5px;margin-bottom:6px}
+  .kpi .value{font-size:30px;font-weight:800;letter-spacing:-.5px}
+  .kpi .value.green{color:var(--green)}.kpi .value.blue{color:var(--primary-light)}
+  .kpi .value.amber{color:var(--amber)}.kpi .value.cyan{color:var(--cyan)}.kpi .value.pink{color:var(--pink)}
+  .kpi .sub{font-size:11px;color:var(--muted);margin-top:4px}
+
+  /* Grid layouts */
+  .grid-2{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:16px}
+  .grid-3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:16px;margin-bottom:16px}
+
+  /* Cards */
+  .card{
+    background:var(--card);border:1px solid var(--border);border-radius:var(--radius);
+    padding:22px;margin-bottom:16px;transition:box-shadow .2s;
+  }
+  .card:hover{box-shadow:0 2px 16px rgba(0,0,0,.2)}
+  .card h3{font-size:14px;font-weight:700;margin-bottom:16px;color:var(--ink);display:flex;align-items:center;gap:8px}
+  .chart-wrap{position:relative;height:240px}
+  .chart-wrap-sm{position:relative;height:200px}
+
+  /* Tables */
+  table{width:100%;border-collapse:collapse;font-size:13px}
+  th{text-align:left;padding:9px 10px;color:var(--sub);font-weight:600;border-bottom:1px solid var(--border);font-size:11px;text-transform:uppercase;letter-spacing:.3px}
+  td{padding:9px 10px;border-bottom:1px solid var(--border)}
+  tr:hover td{background:rgba(99,102,241,.04)}
+  .rank{display:inline-flex;align-items:center;justify-content:center;width:24px;height:24px;border-radius:50%;background:var(--primary);color:#fff;font-size:11px;font-weight:700}
+  .bar{height:8px;border-radius:4px;background:linear-gradient(90deg,var(--primary),var(--primary-light));min-width:4px;transition:width .5s ease}
+  .tag{display:inline-block;padding:2px 8px;border-radius:6px;font-size:11px;font-weight:600;background:rgba(99,102,241,.15);color:var(--primary-light)}
+
+  /* Heatmap */
+  .heatmap{display:grid;grid-template-columns:40px repeat(24,1fr);gap:2px;font-size:10px}
+  .heatmap .day-label{display:flex;align-items:center;justify-content:flex-end;padding-right:6px;color:var(--sub);font-weight:600}
+  .heatmap .hour-label{text-align:center;color:var(--muted);font-size:9px;padding:2px 0}
+  .heatmap .cell{
+    aspect-ratio:1;border-radius:3px;background:var(--border);min-height:16px;
+    transition:background .3s;cursor:default;position:relative;
+  }
+  .heatmap .cell[title]:hover{outline:2px solid var(--primary-light);z-index:1}
+
+  /* Funnel */
+  .funnel{display:flex;flex-direction:column;gap:6px}
+  .funnel-step{display:flex;align-items:center;gap:12px}
+  .funnel-bar{height:32px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:13px;color:#fff;transition:width .6s ease;min-width:60px}
+  .funnel-label{font-size:13px;font-weight:600;color:var(--sub);width:40px;text-align:right;flex-shrink:0}
+  .funnel-count{font-size:12px;color:var(--muted);margin-left:8px;flex-shrink:0}
+
+  /* Country bars */
+  .country-bar-wrap{display:flex;flex-direction:column;gap:8px;max-height:320px;overflow-y:auto}
+  .country-row{display:flex;align-items:center;gap:10px}
+  .country-flag{font-size:20px;width:28px;text-align:center}
+  .country-name{font-size:13px;font-weight:600;width:100px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+  .country-bar-bg{flex:1;height:22px;background:var(--border);border-radius:6px;overflow:hidden;position:relative}
+  .country-bar-fill{height:100%;border-radius:6px;background:linear-gradient(90deg,var(--primary),var(--cyan));transition:width .6s ease}
+  .country-count{font-size:12px;color:var(--sub);font-weight:600;width:40px;text-align:right}
+
+  /* Visitor feed */
+  .visitors-list{max-height:420px;overflow-y:auto}
+  .visitor-row{display:flex;align-items:center;gap:10px;padding:8px 0;border-bottom:1px solid var(--border);font-size:13px}
+  .visitor-row:last-child{border:none}
+  .visitor-flag{font-size:18px}
+  .visitor-info{flex:1;min-width:0}
+  .visitor-info .top{font-weight:600;display:flex;gap:6px;align-items:center;flex-wrap:wrap}
+  .visitor-info .bottom{font-size:11px;color:var(--muted);margin-top:2px;display:flex;gap:8px;flex-wrap:wrap}
+  .visitor-time{font-size:11px;color:var(--muted);white-space:nowrap}
+  .live-dot{width:8px;height:8px;background:var(--green);border-radius:50%;display:inline-block;animation:pulse 1.5s infinite}
+
+  @media(max-width:900px){.grid-2,.grid-3{grid-template-columns:1fr}.kpi .value{font-size:24px}.wrap{padding:0 14px 30px}.controls{padding:14px}}
+  @media(max-width:600px){.heatmap{font-size:8px}.header{padding:14px 16px}}
+
+  /* Animations */
+  .fade-in{animation:fadeIn .5s ease-out}
+  @keyframes fadeIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+</style>
+</head>
+<body>
+<div id="loginOverlay" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,.9);z-index:9999;align-items:center;justify-content:center">
+  <div style="background:#1a1d29;border:1px solid #2a2d3e;border-radius:16px;padding:40px;width:360px;max-width:90vw;text-align:center">
+    <div style="font-size:36px;margin-bottom:12px">&#x1F510;</div>
+    <h2 style="font-size:20px;font-weight:800;margin-bottom:8px;color:#e4e6f0">Analytics Login</h2>
+    <p style="font-size:13px;color:#8890a4;margin-bottom:24px">&#xAD00;&#xB9AC;&#xC790; &#xB85C;&#xADF8;&#xC778;&#xC774; &#xD544;&#xC694;&#xD569;&#xB2C8;&#xB2E4;</p>
+    <form onsubmit="doLogin(event)">
+      <input id="loginUser" type="text" placeholder="&#xC544;&#xC774;&#xB514;" autocomplete="username" style="width:100%;padding:12px 16px;background:#0f1117;border:1px solid #2a2d3e;border-radius:10px;color:#e4e6f0;font-size:14px;margin-bottom:10px;outline:none">
+      <input id="loginPass" type="password" placeholder="&#xBE44;&#xBC00;&#xBC88;&#xD638;" autocomplete="current-password" style="width:100%;padding:12px 16px;background:#0f1117;border:1px solid #2a2d3e;border-radius:10px;color:#e4e6f0;font-size:14px;margin-bottom:16px;outline:none">
+      <div id="loginError" style="color:#ef4444;font-size:12px;margin-bottom:10px;display:none"></div>
+      <button type="submit" style="width:100%;padding:12px;background:#6366f1;color:#fff;border:none;border-radius:10px;font-size:14px;font-weight:700;cursor:pointer;transition:background .2s">&#xB85C;&#xADF8;&#xC778;</button>
+    </form>
+  </div>
+</div>
+<div class="header">
+  <div style="display:flex;align-items:center;gap:10px">
+    <h1>&#x1F4CA; Simulak Analytics</h1>
+    <span class="badge">LIVE</span>
+    <span class="realtime-count" id="realtimeHeader"></span>
+  </div>
+  <div style="display:flex;gap:10px;align-items:center">
+    <a href="#" onclick="fetch('/api/analytics-auth/logout',{method:'POST'}).then(()=>location.reload());return false">&#xB85C;&#xADF8;&#xC544;&#xC6C3;</a>
+    <a href="/">&#x2190; &#xBA54;&#xC778;&#xC73C;&#xB85C;</a>
+    <button id="tabTraffic" class="period-btn active" onclick="switchTab('traffic',this)" style="font-size:12px">&#x1F4CA; &#xD2B8;&#xB798;&#xD53D;</button>
+    <button id="tabBugs" class="period-btn" onclick="switchTab('bugs',this)" style="font-size:12px">&#x1F41B; &#xBC84;&#xADF8;&#xB9AC;&#xD3EC;&#xD2B8;</button>
+    <button id="tabContacts" class="period-btn" onclick="switchTab('contacts',this)" style="font-size:12px">&#x1F4E9; &#xBB38;&#xC758; <span id="contactBadge" style="background:#ef4444;color:#fff;padding:1px 6px;border-radius:8px;font-size:10px;margin-left:4px;display:none">0</span></button>
+  </div>
+</div>
+
+<div class="controls">
+  <button class="period-btn active" onclick="loadData(1,this)">&#xC624;&#xB298;</button>
+  <button class="period-btn" onclick="loadData(7,this)">7&#xC77C;</button>
+  <button class="period-btn" onclick="loadData(30,this)">30&#xC77C;</button>
+  <button class="period-btn" onclick="loadData(90,this)">90&#xC77C;</button>
+</div>
+
+<!-- &#xBB38;&#xC758; &#xAD00;&#xB9AC; &#xC139;&#xC158; -->
+<div class="wrap" style="margin-bottom:0;padding-bottom:0;">
+  <div class="card fade-in" id="contactsCard" style="border-color:var(--primary);border-width:1px;">
+    <h3 style="display:flex;align-items:center;justify-content:space-between;">
+      <span>&#x1F4E9; &#xBB38;&#xC758; &#xAD00;&#xB9AC; <span id="contactBadgeInline" style="display:none;background:var(--red);color:#fff;padding:2px 8px;border-radius:10px;font-size:11px;margin-left:8px;"></span></span>
+      <button onclick="loadContacts()" style="background:var(--card-hover);border:1px solid var(--border);color:var(--sub);padding:6px 14px;border-radius:8px;cursor:pointer;font-size:12px;font-weight:600;">&#xC0C8;&#xB85C;&#xACE0;&#xCE68;</button>
+    </h3>
+    <div id="contactsList" style="margin-top:12px;"></div>
+  </div>
+</div>
+
+<div class="wrap">
+  <!-- Realtime Active Users Hero -->
+  <div class="card fade-in" id="realtimeHero" style="text-align:center;padding:28px 20px;margin-bottom:16px;background:linear-gradient(135deg,rgba(16,185,129,0.08),rgba(6,182,212,0.06));border-color:rgba(16,185,129,0.2);">
+    <div style="font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:#10b981;margin-bottom:8px;">&#x1F7E2; &#xC2E4;&#xC2DC;&#xAC04; &#xD65C;&#xC131; &#xC0AC;&#xC6A9;&#xC790;</div>
+    <div id="realtimeBig" style="font-size:64px;font-weight:900;color:#10b981;letter-spacing:-2px;line-height:1;margin-bottom:6px;font-variant-numeric:tabular-nums;">0</div>
+    <div style="font-size:12px;color:var(--sub);">&#xCD5C;&#xADFC; 5&#xBD84; &#xB0B4; &#xC811;&#xC18D; (&#xACE0;&#xC720; IP &#xAE30;&#xC900;) &#xB7; 30&#xCD08;&#xB9C8;&#xB2E4; &#xAC31;&#xC2E0;</div>
+  </div>
+
+  <!-- KPI Row -->
+  <div class="kpi-grid fade-in" id="kpis"></div>
+
+  <!-- Traffic Chart (PV + UV dual axis) -->
+  <div class="card fade-in">
+    <h3>&#x1F4C8; &#xD2B8;&#xB798;&#xD53D; &#xCD94;&#xC774; (PV + UV)</h3>
+    <div class="chart-wrap"><canvas id="trafficChart"></canvas></div>
+  </div>
+
+  <div class="grid-2 fade-in">
+    <!-- Country bars -->
+    <div class="card">
+      <h3>&#x1F30D; &#xAD6D;&#xAC00;&#xBCC4; &#xBC29;&#xBB38;</h3>
+      <div class="country-bar-wrap" id="countryBars"></div>
+    </div>
+    <!-- Hourly heatmap -->
+    <div class="card">
+      <h3>&#x1F550; &#xC2DC;&#xAC04;&#xB300;&#xBCC4; &#xD2B8;&#xB798;&#xD53D; &#xD788;&#xD2B8;&#xB9F5;</h3>
+      <div id="heatmapWrap"></div>
+    </div>
+  </div>
+
+  <!-- Device / Browser / OS doughnuts -->
+  <div class="grid-3 fade-in">
+    <div class="card">
+      <h3>&#x1F4F1; &#xB514;&#xBC14;&#xC774;&#xC2A4;</h3>
+      <div class="chart-wrap-sm"><canvas id="deviceChart"></canvas></div>
+    </div>
+    <div class="card">
+      <h3>&#x1F310; &#xBE0C;&#xB77C;&#xC6B0;&#xC800;</h3>
+      <div class="chart-wrap-sm"><canvas id="browserChart"></canvas></div>
+    </div>
+    <div class="card">
+      <h3>&#x1F4BB; &#xC6B4;&#xC601;&#xCCB4;&#xC81C;</h3>
+      <div class="chart-wrap-sm"><canvas id="osChart"></canvas></div>
+    </div>
+  </div>
+
+  <div class="grid-2 fade-in">
+    <!-- Referrer sources -->
+    <div class="card">
+      <h3>&#x1F517; &#xC720;&#xC785; &#xC18C;&#xC2A4;</h3>
+      <div class="chart-wrap"><canvas id="refChart"></canvas></div>
+    </div>
+    <!-- New vs Returning -->
+    <div class="card">
+      <h3>&#x1F504; &#xC2E0;&#xADDC; vs &#xC7AC;&#xBC29;&#xBB38;</h3>
+      <div class="chart-wrap"><canvas id="nvrChart"></canvas></div>
+    </div>
+  </div>
+
+  <div class="grid-2 fade-in">
+    <!-- Scroll depth funnel -->
+    <div class="card">
+      <h3>&#x1F4DC; &#xC2A4;&#xD06C;&#xB864; &#xAE4A;&#xC774;</h3>
+      <div id="scrollFunnel" class="funnel"></div>
+    </div>
+    <!-- Event types -->
+    <div class="card">
+      <h3>&#x1F3AF; &#xC774;&#xBCA4;&#xD2B8; &#xC720;&#xD615;</h3>
+      <div class="chart-wrap"><canvas id="eventChart"></canvas></div>
+    </div>
+  </div>
+
+  <div class="grid-2 fade-in">
+    <div class="card">
+      <h3>&#x1F446; &#xBA54;&#xB274; &#xD074;&#xB9AD; &#xB7AD;&#xD0B9;</h3>
+      <div id="clickRanking"></div>
+    </div>
+    <div class="card">
+      <h3>&#x1F4C4; &#xC778;&#xAE30; &#xD398;&#xC774;&#xC9C0;</h3>
+      <div id="topPages"></div>
+    </div>
+  </div>
+
+  <!-- Live Visitor Feed -->
+  <div class="card fade-in">
+    <h3><span class="live-dot"></span> &#xC2E4;&#xC2DC;&#xAC04; &#xBC29;&#xBB38;&#xC790; &#xD53C;&#xB4DC;</h3>
+    <div class="visitors-list" id="visitors"></div>
+  </div>
+</div>
+
+<!-- Bug Reports Section (hidden by default) -->
+<div id="bugSection" style="display:none;max-width:1360px;margin:0 auto;padding:0 28px 50px">
+  <div class="controls">
+    <button class="period-btn active" onclick="loadBugs('all',this)">&#xC804;&#xCCB4;</button>
+    <button class="period-btn" onclick="loadBugs('open',this)">&#x1F534; &#xC5F4;&#xB9BC;</button>
+    <button class="period-btn" onclick="loadBugs('investigating',this)">&#x1F7E1; &#xC870;&#xC0AC;&#xC911;</button>
+    <button class="period-btn" onclick="loadBugs('resolved',this)">&#x1F7E2; &#xD574;&#xACB0;</button>
+    <button class="period-btn" onclick="loadBugs('closed',this)">&#x26AB; &#xB2EB;&#xD798;</button>
+  </div>
+
+  <!-- Bug KPIs -->
+  <div class="kpi-grid fade-in" id="bugKpis"></div>
+
+  <!-- Bug Reports List -->
+  <div class="card fade-in">
+    <h3>&#x1F41B; &#xBC84;&#xADF8; &#xB9AC;&#xD3EC;&#xD2B8; &#xBAA9;&#xB85D;</h3>
+    <div id="bugList" style="max-height:600px;overflow-y:auto"></div>
+  </div>
+</div>
+
+<!-- Contacts Section (hidden by default) -->
+<div id="contactSection" style="display:none;max-width:1360px;margin:0 auto;padding:0 28px 50px">
+  <div class="card fade-in">
+    <h3>&#x1F4E9; &#xBB38;&#xC758; &#xBAA9;&#xB85D;</h3>
+    <div id="contactList" style="max-height:700px;overflow-y:auto"></div>
+  </div>
+</div>
+
+<script>
+// ─── Auth ──
+async function checkAuth() {
+  try {
+    var r = await fetch('/api/analytics-auth/check');
+    var d = await r.json();
+    if (!d.authenticated) {
+      document.getElementById('loginOverlay').style.display = 'flex';
+      return false;
+    }
+    return true;
+  } catch(e) { return true; }
+}
+
+async function doLogin(e) {
+  e.preventDefault();
+  var r = await fetch('/api/analytics-auth/login', {
+    method: 'POST',
+    headers: {'Content-Type': 'application/json'},
+    body: JSON.stringify({
+      username: document.getElementById('loginUser').value,
+      password: document.getElementById('loginPass').value
+    })
+  });
+  if (r.ok) { location.reload(); }
+  else {
+    var d = await r.json();
+    var el = document.getElementById('loginError');
+    el.textContent = d.error || '로그인 실패';
+    el.style.display = 'block';
+  }
+}
+
+var charts = {};
+var PALETTE = ['#6366f1','#10b981','#f59e0b','#ef4444','#8b5cf6','#ec4899','#06b6d4','#84cc16','#f97316','#14b8a6','#e11d48','#a855f7'];
+var PALETTE_ALPHA = PALETTE.map(function(c) { return c + '33'; });
+
+// Country code -> emoji flag
+var COUNTRY_FLAGS = {
+  '대한민국':'🇰🇷','한국':'🇰🇷','South Korea':'🇰🇷','Korea':'🇰🇷',
+  '미국':'🇺🇸','United States':'🇺🇸','USA':'🇺🇸',
+  '일본':'🇯🇵','Japan':'🇯🇵',
+  '중국':'🇨🇳','China':'🇨🇳',
+  '영국':'🇬🇧','United Kingdom':'🇬🇧','UK':'🇬🇧',
+  '독일':'🇩🇪','Germany':'🇩🇪',
+  '프랑스':'🇫🇷','France':'🇫🇷',
+  '캐나다':'🇨🇦','Canada':'🇨🇦',
+  '호주':'🇦🇺','Australia':'🇦🇺',
+  '인도':'🇮🇳','India':'🇮🇳',
+  '브라질':'🇧🇷','Brazil':'🇧🇷',
+  '싱가포르':'🇸🇬','Singapore':'🇸🇬',
+  '대만':'🇹🇼','Taiwan':'🇹🇼',
+  '베트남':'🇻🇳','Vietnam':'🇻🇳','Viet Nam':'🇻🇳',
+  '태국':'🇹🇭','Thailand':'🇹🇭',
+  '홍콩':'🇭🇰','Hong Kong':'🇭🇰',
+  '인도네시아':'🇮🇩','Indonesia':'🇮🇩',
+  '러시아':'🇷🇺','Russia':'🇷🇺',
+  '네덜란드':'🇳🇱','Netherlands':'🇳🇱',
+  '스웨덴':'🇸🇪','Sweden':'🇸🇪',
+  '핀란드':'🇫🇮','Finland':'🇫🇮',
+  'Local':'🏠',
+};
+function getFlag(country){ return COUNTRY_FLAGS[country] || '🌐'; }
+
+function fmtDuration(ms) {
+  if (!ms || ms <= 0) return '—';
+  var s = Math.round(ms / 1000);
+  if (s < 60) return s + '초';
+  var m = Math.floor(s / 60);
+  return m + '분 ' + (s % 60) + '초';
+}
+
+function timeAgo(dateStr) {
+  var diff = Date.now() - new Date(dateStr + 'Z').getTime();
+  var mins = Math.floor(diff / 60000);
+  if (mins < 1) return '방금';
+  if (mins < 60) return mins + '분 전';
+  var hrs = Math.floor(mins / 60);
+  if (hrs < 24) return hrs + '시간 전';
+  return Math.floor(hrs / 24) + '일 전';
+}
+
+function esc(s) { if (!s) return ''; var d = document.createElement('div'); d.textContent = s; return d.innerHTML; }
+
+var currentDays = 7;
+
+async function loadData(days, btn) {
+  currentDays = days;
+  document.querySelectorAll('.controls .period-btn').forEach(function(b) { b.classList.remove('active'); });
+  if (btn) btn.classList.add('active');
+  try {
+    var r = await fetch('/api/analytics?days=' + days);
+    var d = await r.json();
+    renderKPIs(d);
+    renderTrafficChart(d);
+    renderCountryBars(d);
+    renderHeatmap(d);
+    renderDeviceChart(d);
+    renderBrowserChart(d);
+    renderOSChart(d);
+    renderRefChart(d);
+    renderNVRChart(d);
+    renderScrollFunnel(d);
+    renderEventChart(d);
+    renderClickRanking(d);
+    renderTopPages(d);
+    renderVisitors(d);
+  } catch(e) { console.error('Analytics load error:', e); }
+}
+
+// ── KPIs ──
+function renderKPIs(d) {
+  var pvs = d.byType.find(function(t) { return t.event_type === 'pageview'; });
+  var pv = pvs ? pvs.c : 0;
+  document.getElementById('realtimeHeader').textContent = d.realtime ? '🟢 ' + d.realtime + '명 접속 중' : '';
+  var bigEl = document.getElementById('realtimeBig');
+  if (bigEl) bigEl.textContent = (d.realtime || 0).toLocaleString();
+  document.getElementById('kpis').innerHTML =
+    '<div class="kpi"><div class="label">페이지뷰</div><div class="value blue">' + pv.toLocaleString() + '</div></div>' +
+    '<div class="kpi"><div class="label">순 방문자</div><div class="value green">' + d.uniqueIps.toLocaleString() + '</div></div>' +
+    '<div class="kpi"><div class="label">이탈률</div><div class="value amber">' + d.bounceRate + '%</div><div class="sub">단일 PV 세션 비율</div></div>' +
+    '<div class="kpi"><div class="label">방문당 페이지</div><div class="value cyan">' + d.avgPagesPerVisit + '</div></div>' +
+    '<div class="kpi"><div class="label">평균 체류시간</div><div class="value pink">' + fmtDuration(d.avgDuration) + '</div></div>' +
+    '<div class="kpi"><div class="label">실시간 접속</div><div class="value green">' + d.realtime + '<span class="live-dot" style="margin-left:8px"></span></div></div>';
+}
+
+// ── Chart helper ──
+function makeChart(id, config) {
+  if (charts[id]) charts[id].destroy();
+  var el = document.getElementById(id);
+  if (!el) return;
+  Chart.defaults.color = '#8890a4';
+  Chart.defaults.borderColor = '#2a2d3e';
+  charts[id] = new Chart(el, config);
+}
+
+// ── Traffic Chart (PV bars + UV line, dual axis) ──
+function renderTrafficChart(d) {
+  var pvMap = Object.fromEntries((d.byDay || []).map(function(r) { return [r.day, r.c]; }));
+  var uvMap = Object.fromEntries((d.byDayUV || []).map(function(r) { return [r.day, r.c]; }));
+  var allDays = [].concat(Object.keys(pvMap), Object.keys(uvMap)).filter(function(v, i, a) { return a.indexOf(v) === i; }).sort();
+  makeChart('trafficChart', {
+    type: 'bar',
+    data: {
+      labels: allDays.map(function(d) { return d.slice(5); }),
+      datasets: [
+        {
+          label: 'PV',
+          data: allDays.map(function(d) { return pvMap[d] || 0; }),
+          backgroundColor: 'rgba(99,102,241,.5)',
+          borderRadius: 6,
+          yAxisID: 'y',
+          order: 2,
+        },
+        {
+          label: 'UV',
+          data: allDays.map(function(d) { return uvMap[d] || 0; }),
+          type: 'line',
+          borderColor: '#10b981',
+          backgroundColor: 'rgba(16,185,129,.1)',
+          pointBackgroundColor: '#10b981',
+          pointRadius: 4,
+          tension: 0.3,
+          fill: true,
+          yAxisID: 'y1',
+          order: 1,
+        }
+      ]
+    },
+    options: {
+      responsive: true, maintainAspectRatio: false,
+      interaction: { mode: 'index', intersect: false },
+      plugins: { legend: { labels: { font: { size: 12 } } } },
+      scales: {
+        y: { beginAtZero: true, position: 'left', title: { display: true, text: 'PV', color: '#6366f1' }, grid: { color: '#2a2d3e' } },
+        y1: { beginAtZero: true, position: 'right', title: { display: true, text: 'UV', color: '#10b981' }, grid: { display: false } },
+      }
+    }
+  });
+}
+
+// ── Country horizontal bars with flags ──
+function renderCountryBars(d) {
+  var el = document.getElementById('countryBars');
+  if (!d.byCountry || !d.byCountry.length) { el.innerHTML = '<p style="color:var(--sub);font-size:13px">데이터 없음</p>'; return; }
+  var max = d.byCountry[0].c;
+  el.innerHTML = d.byCountry.map(function(r) {
+    var pct = Math.round((r.c / max) * 100);
+    return '<div class="country-row">' +
+      '<div class="country-flag">' + getFlag(r.country) + '</div>' +
+      '<div class="country-name">' + esc(r.country || 'Unknown') + '</div>' +
+      '<div class="country-bar-bg"><div class="country-bar-fill" style="width:' + pct + '%"></div></div>' +
+      '<div class="country-count">' + r.c + '</div>' +
+    '</div>';
+  }).join('');
+}
+
+// ── Hourly heatmap (7 days x 24 hours) ──
+function renderHeatmap(d) {
+  var el = document.getElementById('heatmapWrap');
+  var dayNames = ['일','월','화','수','목','금','토'];
+  var matrix = Array.from({length:7}, function() { return Array(24).fill(0); });
+  var maxVal = 1;
+  var heatData = d.byDayHour || d.byHour;
+  if (heatData) {
+    for (var i = 0; i < heatData.length; i++) {
+      var r = heatData[i];
+      var dow = r.dow != null ? r.dow : 0;
+      var hour = r.hour != null ? r.hour : 0;
+      matrix[dow][hour] += r.c;
+      if (matrix[dow][hour] > maxVal) maxVal = matrix[dow][hour];
+    }
+  }
+  function heatColor(v) {
+    if (v === 0) return 'var(--border)';
+    var ratio = v / maxVal;
+    var alpha = 0.15 + ratio * 0.85;
+    return 'rgba(99,102,241,' + alpha + ')';
+  }
+  var html = '<div class="heatmap">';
+  html += '<div></div>';
+  for (var h = 0; h < 24; h++) html += '<div class="hour-label">' + h + '</div>';
+  for (var dw = 0; dw < 7; dw++) {
+    html += '<div class="day-label">' + dayNames[dw] + '</div>';
+    for (var h2 = 0; h2 < 24; h2++) {
+      var v = matrix[dw][h2];
+      html += '<div class="cell" style="background:' + heatColor(v) + '" title="' + dayNames[dw] + ' ' + h2 + '시: ' + v + '건"></div>';
+    }
+  }
+  html += '</div>';
+  el.innerHTML = html;
+}
+
+// ── Doughnut helpers ──
+function renderDoughnut(id, labels, data, colors) {
+  if (!data.length || data.every(function(v) { return v === 0; })) {
+    var el = document.getElementById(id);
+    if (el) el.parentElement.innerHTML += '<p style="color:var(--sub);font-size:13px;text-align:center;margin-top:40px">데이터 없음</p>';
+    return;
+  }
+  makeChart(id, {
+    type: 'doughnut',
+    data: { labels: labels, datasets: [{ data: data, backgroundColor: colors || PALETTE, borderWidth: 0, hoverOffset: 6 }] },
+    options: {
+      responsive: true, maintainAspectRatio: false, cutout: '62%',
+      plugins: { legend: { position: 'right', labels: { font: { size: 11 }, padding: 10, usePointStyle: true, pointStyleWidth: 10 } } }
+    }
+  });
+}
+
+function renderDeviceChart(d) {
+  var labels = d.byDevice.map(function(r) { return r.device === 'mobile' ? '📱 모바일' : '💻 데스크톱'; });
+  renderDoughnut('deviceChart', labels, d.byDevice.map(function(r) { return r.c; }), ['#6366f1', '#10b981', '#f59e0b']);
+}
+function renderBrowserChart(d) {
+  if (!d.byBrowser || !d.byBrowser.length) { renderDoughnut('browserChart', [], [], []); return; }
+  renderDoughnut('browserChart', d.byBrowser.map(function(r) { return r.browser; }), d.byBrowser.map(function(r) { return r.c; }));
+}
+function renderOSChart(d) {
+  if (!d.byOS || !d.byOS.length) { renderDoughnut('osChart', [], [], []); return; }
+  renderDoughnut('osChart', d.byOS.map(function(r) { return r.os; }), d.byOS.map(function(r) { return r.c; }));
+}
+
+// ── Referrer sources (grouped) ──
+function renderRefChart(d) {
+  if (!d.byRefDomain || !d.byRefDomain.length) { renderDoughnut('refChart', ['Direct'], [1], ['#6366f1']); return; }
+  var searchEngines = ['google.com','bing.com','naver.com','daum.net','yahoo.com','duckduckgo.com','baidu.com','search.naver.com','zum.com'];
+  var socialMedia = ['twitter.com','x.com','facebook.com','instagram.com','reddit.com','linkedin.com','t.co','threads.net','youtube.com'];
+  var groups = { 'Direct': 0, 'Search': 0, 'Social': 0, 'Other': 0 };
+  for (var i = 0; i < d.byRefDomain.length; i++) {
+    var _r = d.byRefDomain[i];
+    var dom = _r.domain.toLowerCase();
+    if (dom === 'direct') groups['Direct'] += _r.c;
+    else if (searchEngines.some(function(s) { return dom.includes(s); })) groups['Search'] += _r.c;
+    else if (socialMedia.some(function(s) { return dom.includes(s); })) groups['Social'] += _r.c;
+    else groups['Other'] += _r.c;
+  }
+  var labels = Object.keys(groups).filter(function(k) { return groups[k] > 0; });
+  var data = labels.map(function(k) { return groups[k]; });
+  var colors = { 'Direct': '#6366f1', 'Search': '#10b981', 'Social': '#ec4899', 'Other': '#f59e0b' };
+  makeChart('refChart', {
+    type: 'doughnut',
+    data: { labels: labels, datasets: [{ data: data, backgroundColor: labels.map(function(l) { return colors[l]; }), borderWidth: 0, hoverOffset: 6 }] },
+    options: {
+      responsive: true, maintainAspectRatio: false, cutout: '62%',
+      plugins: { legend: { position: 'right', labels: { font: { size: 12 }, padding: 12, usePointStyle: true, pointStyleWidth: 10 } } }
+    }
+  });
+}
+
+// ── New vs Returning ──
+function renderNVRChart(d) {
+  var nv = d.newVsReturn || { new: 0, returning: 0 };
+  renderDoughnut('nvrChart', ['신규 방문', '재방문'], [nv.new, nv.returning], ['#06b6d4', '#8b5cf6']);
+}
+
+// ── Scroll depth funnel ──
+function renderScrollFunnel(d) {
+  var el = document.getElementById('scrollFunnel');
+  var marks = ['25%', '50%', '75%', '100%'];
+  var map = {};
+  if (d.byScrollDepth) d.byScrollDepth.forEach(function(r) { map[r.label] = r.c; });
+  var maxV = Math.max.apply(null, marks.map(function(m) { return map[m] || 0; }).concat([1]));
+  if (maxV <= 0 || !d.byScrollDepth || d.byScrollDepth.length === 0) {
+    el.innerHTML = '<p style="color:var(--sub);font-size:13px">스크롤 데이터 없음 (수집 중)</p>';
+    return;
+  }
+  var funnelColors = ['#10b981', '#06b6d4', '#f59e0b', '#ef4444'];
+  el.innerHTML = marks.map(function(m, i) {
+    var v = map[m] || 0;
+    var pct = Math.max(Math.round((v / maxV) * 100), 8);
+    return '<div class="funnel-step">' +
+      '<div class="funnel-label">' + m + '</div>' +
+      '<div class="funnel-bar" style="width:' + pct + '%;background:' + funnelColors[i] + '">' + v + '</div>' +
+      '<div class="funnel-count">' + (maxV > 0 ? Math.round((v/maxV)*100) : 0) + '%</div>' +
+    '</div>';
+  }).join('');
+}
+
+// ── Event types bar chart ──
+function renderEventChart(d) {
+  if (!d.byType.length) return;
+  makeChart('eventChart', {
+    type: 'bar',
+    data: {
+      labels: d.byType.map(function(r) { return r.event_type; }),
+      datasets: [{ data: d.byType.map(function(r) { return r.c; }), backgroundColor: PALETTE.slice(0, d.byType.length), borderRadius: 6 }]
+    },
+    options: {
+      responsive: true, maintainAspectRatio: false, indexAxis: 'y',
+      plugins: { legend: { display: false } },
+      scales: { x: { beginAtZero: true, grid: { color: '#2a2d3e' } }, y: { grid: { display: false } } }
+    }
+  });
+}
+
+// ── Click ranking ──
+function renderClickRanking(d) {
+  var el = document.getElementById('clickRanking');
+  if (!d.byLabel.length) { el.innerHTML = '<p style="color:var(--sub);font-size:13px">데이터 없음</p>'; return; }
+  var max = (d.byLabel[0] && d.byLabel[0].c) || 1;
+  el.innerHTML = '<table><thead><tr><th>#</th><th>메뉴</th><th>클릭</th><th></th></tr></thead><tbody>' +
+    d.byLabel.map(function(r,i) { return '<tr><td><span class="rank">' + (i+1) + '</span></td><td>' + esc(r.label) + '</td><td><b>' + r.c + '</b></td><td style="width:40%"><div class="bar" style="width:' + (r.c/max*100) + '%"></div></td></tr>'; }).join('') +
+    '</tbody></table>';
+}
+
+// ── Top Pages ──
+function renderTopPages(d) {
+  var el = document.getElementById('topPages');
+  if (!d.topPages.length) { el.innerHTML = '<p style="color:var(--sub);font-size:13px">데이터 없음</p>'; return; }
+  var max = (d.topPages[0] && d.topPages[0].c) || 1;
+  el.innerHTML = '<table><thead><tr><th>#</th><th>경로</th><th>뷰</th><th></th></tr></thead><tbody>' +
+    d.topPages.map(function(r,i) { return '<tr><td><span class="rank">' + (i+1) + '</span></td><td><code style="font-size:12px;color:var(--primary-light)">' + esc(r.path) + '</code></td><td><b>' + r.c + '</b></td><td style="width:40%"><div class="bar" style="width:' + (r.c/max*100) + '%"></div></td></tr>'; }).join('') +
+    '</tbody></table>';
+}
+
+// ── Visitor Feed ──
+function renderVisitors(d) {
+  var el = document.getElementById('visitors');
+  if (!d.recentVisitors.length) { el.innerHTML = '<p style="color:var(--sub);font-size:13px">데이터 없음</p>'; return; }
+  el.innerHTML = d.recentVisitors.map(function(r) {
+    var flag = getFlag(r.country);
+    var dev = r.device === 'mobile' ? '📱' : '💻';
+    var browserTag = r.browser ? '<span class="tag">' + esc(r.browser) + '</span>' : '';
+    var osTag = r.os ? '<span class="tag">' + esc(r.os) + '</span>' : '';
+    var city = r.city ? esc(r.city) : '';
+    var country = r.country ? esc(r.country) : '';
+    var loc = [country, city].filter(Boolean).join(' · ');
+    return '<div class="visitor-row">' +
+      '<div class="visitor-flag">' + flag + '</div>' +
+      '<div class="visitor-info">' +
+        '<div class="top">' + dev + ' ' + loc + ' ' + browserTag + ' ' + osTag + '</div>' +
+        '<div class="bottom">' +
+          '<span>' + esc(r.path || '/') + '</span>' +
+          '<span>IP: ' + esc(r.ip) + '</span>' +
+        '</div>' +
+      '</div>' +
+      '<div class="visitor-time">' + timeAgo(r.created_at) + '</div>' +
+    '</div>';
+  }).join('');
+}
+
+// ─── Tab switching ──
+function switchTab(tab, btn) {
+  document.querySelectorAll('#tabTraffic,#tabBugs,#tabContacts').forEach(function(b) { b.classList.remove('active'); });
+  btn.classList.add('active');
+  document.querySelector('.controls').style.display = tab === 'traffic' ? 'flex' : 'none';
+  document.querySelector('.wrap').style.display = tab === 'traffic' ? 'block' : 'none';
+  document.getElementById('bugSection').style.display = tab === 'bugs' ? 'block' : 'none';
+  document.getElementById('contactSection').style.display = tab === 'contacts' ? 'block' : 'none';
+  if (tab === 'bugs') loadBugs('all');
+  if (tab === 'contacts') loadContactsTab();
+}
+
+// ─── Bug Reports ──
+var STATUS_BADGE = {
+  open: '<span style="background:#ef4444;color:#fff;padding:2px 8px;border-radius:6px;font-size:11px;font-weight:600">열림</span>',
+  investigating: '<span style="background:#f59e0b;color:#000;padding:2px 8px;border-radius:6px;font-size:11px;font-weight:600">조사중</span>',
+  resolved: '<span style="background:#10b981;color:#fff;padding:2px 8px;border-radius:6px;font-size:11px;font-weight:600">해결</span>',
+  closed: '<span style="background:#6b7280;color:#fff;padding:2px 8px;border-radius:6px;font-size:11px;font-weight:600">닫힘</span>',
+};
+var CAT_EMOJI = { bug:'🐛', error:'❌', ui:'🎨', performance:'🐢', suggestion:'💡' };
+var PRIORITY_LABEL = { low:'🔵 낮음', medium:'🟡 보통', high:'🔴 높음', critical:'💥 긴급' };
+
+async function loadBugs(status, btn) {
+  if (btn) {
+    document.querySelectorAll('#bugSection .controls .period-btn').forEach(function(b) { b.classList.remove('active'); });
+    btn.classList.add('active');
+  }
+  try {
+    var r = await fetch('/api/bug-reports?status=' + (status || 'all') + '&limit=100');
+    var d = await r.json();
+    renderBugKPIs(d.stats);
+    renderBugList(d.reports);
+  } catch (e) { console.error('Bug load error:', e); }
+}
+
+function renderBugKPIs(s) {
+  if (!s) return;
+  document.getElementById('bugKpis').innerHTML =
+    '<div class="kpi"><div class="label">전체</div><div class="value blue">' + s.total + '</div></div>' +
+    '<div class="kpi"><div class="label">열림</div><div class="value" style="color:var(--red)">' + s.open + '</div></div>' +
+    '<div class="kpi"><div class="label">조사중</div><div class="value amber">' + s.investigating + '</div></div>' +
+    '<div class="kpi"><div class="label">해결</div><div class="value green">' + s.resolved + '</div></div>' +
+    '<div class="kpi"><div class="label">닫힘</div><div class="value" style="color:var(--muted)">' + s.closed + '</div></div>' +
+    '<div class="kpi"><div class="label">최근 7일</div><div class="value cyan">' + s.recent7d + '</div></div>';
+}
+
+function renderBugList(reports) {
+  var el = document.getElementById('bugList');
+  if (!reports || !reports.length) {
+    el.innerHTML = '<p style="color:var(--sub);font-size:14px;padding:20px;text-align:center">리포트가 없습니다</p>';
+    return;
+  }
+  el.innerHTML = reports.map(function(r) {
+    return '<div style="padding:14px;border-bottom:1px solid var(--border);display:flex;gap:14px;align-items:flex-start" class="bug-row" data-id="' + r.id + '">' +
+      '<div style="flex:1;min-width:0">' +
+        '<div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin-bottom:6px">' +
+          (STATUS_BADGE[r.status] || '') +
+          '<span style="font-size:12px;color:var(--muted)">#' + r.id + '</span>' +
+          '<span style="font-size:12px">' + (CAT_EMOJI[r.category] || '📋') + ' ' + r.category + '</span>' +
+          '<span style="font-size:11px;color:var(--muted)">' + (PRIORITY_LABEL[r.priority] || '') + '</span>' +
+        '</div>' +
+        '<div style="font-weight:700;font-size:14px;margin-bottom:4px">' + esc(r.title) + '</div>' +
+        '<div style="font-size:12px;color:var(--sub);margin-bottom:6px;white-space:pre-wrap;max-height:60px;overflow:hidden">' + esc(r.description) + '</div>' +
+        '<div style="font-size:11px;color:var(--muted);display:flex;gap:12px;flex-wrap:wrap">' +
+          '<span>👤 ' + esc(r.username || '익명') + '</span>' +
+          '<span>🌍 ' + esc(r.country || '?') + '</span>' +
+          '<span>🌐 ' + esc(r.browser || '-') + ' · ' + esc(r.os || '-') + '</span>' +
+          '<span>🔗 ' + esc(r.page_url || '-') + '</span>' +
+          '<span>📅 ' + (r.created_at ? timeAgo(r.created_at) : '') + '</span>' +
+        '</div>' +
+        (r.admin_note ? '<div style="margin-top:6px;font-size:12px;color:var(--primary-light);background:rgba(99,102,241,.1);padding:6px 10px;border-radius:8px">💬 ' + esc(r.admin_note) + '</div>' : '') +
+      '</div>' +
+      '<div style="display:flex;flex-direction:column;gap:4px;flex-shrink:0">' +
+        '<select onchange="updateBugStatus(' + r.id + ', this.value)" style="padding:4px 8px;font-size:11px;border:1px solid var(--border);border-radius:6px;background:var(--card);color:var(--ink);cursor:pointer">' +
+          '<option value="open"' + (r.status==='open'?' selected':'') + '>열림</option>' +
+          '<option value="investigating"' + (r.status==='investigating'?' selected':'') + '>조사중</option>' +
+          '<option value="resolved"' + (r.status==='resolved'?' selected':'') + '>해결</option>' +
+          '<option value="closed"' + (r.status==='closed'?' selected':'') + '>닫힘</option>' +
+        '</select>' +
+      '</div>' +
+    '</div>';
+  }).join('');
+}
+
+async function updateBugStatus(id, status) {
+  try {
+    await fetch('/api/bug-reports/' + id, {
+      method: 'PATCH',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ status: status }),
+    });
+    var activeBtn = document.querySelector('#bugSection .controls .period-btn.active');
+    var activeText = activeBtn ? activeBtn.textContent : '';
+    var filter = 'all';
+    if (activeText.indexOf('열림') >= 0) filter = 'open';
+    else if (activeText.indexOf('조사') >= 0) filter = 'investigating';
+    else if (activeText.indexOf('해결') >= 0) filter = 'resolved';
+    else if (activeText.indexOf('닫힘') >= 0) filter = 'closed';
+    loadBugs(filter);
+  } catch (e) { console.error('Update bug error:', e); }
+}
+
+// ─── Contacts (inline card) ──
+async function loadContacts() {
+  try {
+    var res = await fetch('/api/contacts');
+    var data = await res.json();
+    var contacts = Array.isArray(data) ? data : (data.contacts || []);
+    var unread = contacts.filter(function(c) { return !c.read; }).length;
+    var badge = document.getElementById('contactBadgeInline');
+    var headerBadge = document.getElementById('contactBadge');
+    if (unread > 0) {
+      if (badge) { badge.textContent = unread + ' 새 문의'; badge.style.display = 'inline'; }
+      if (headerBadge) { headerBadge.textContent = unread; headerBadge.style.display = 'inline'; }
+    } else {
+      if (badge) badge.style.display = 'none';
+      if (headerBadge) headerBadge.style.display = 'none';
+    }
+    var list = document.getElementById('contactsList');
+    if (!contacts.length) { list.innerHTML = '<div style="text-align:center;padding:30px;color:var(--muted);font-size:14px;">아직 문의가 없습니다</div>'; return; }
+    list.innerHTML = contacts.map(function(c) { return '' +
+      '<div style="background:var(--card-hover);border:1px solid ' + (c.read ? 'var(--border)' : 'var(--primary)') + ';border-radius:12px;padding:16px;margin-bottom:10px;' + (!c.read ? 'border-left:3px solid var(--primary);' : '') + '">' +
+        '<div style="display:flex;justify-content:space-between;align-items:flex-start;gap:10px;">' +
+          '<div>' +
+            '<div style="font-weight:700;font-size:15px;">' + esc(c.name) + ' <span style="font-size:11px;color:var(--muted);font-weight:400;">#' + c.id + '</span></div>' +
+            '<div style="font-size:13px;color:var(--sub);margin-top:4px;display:flex;gap:14px;flex-wrap:wrap;">' +
+              '<span>📧 ' + esc(c.email) + '</span>' +
+              (c.phone ? '<span>📞 ' + esc(c.phone) + '</span>' : '') +
+            '</div>' +
+            (c.message ? '<div style="font-size:14px;color:var(--ink);margin-top:8px;white-space:pre-wrap;">' + esc(c.message) + '</div>' : '') +
+          '</div>' +
+          '<div style="font-size:11px;color:var(--muted);white-space:nowrap;">' + (c.created_at ? c.created_at.replace('T',' ').slice(0,16) : '') + '</div>' +
+        '</div>' +
+        '<div style="display:flex;gap:8px;margin-top:12px;">' +
+          (!c.read ? '<button onclick="markContactRead(' + c.id + ')" style="padding:5px 12px;border:1px solid var(--primary);background:transparent;color:var(--primary-light);border-radius:8px;cursor:pointer;font-size:12px;font-weight:600;">읽음</button>' : '') +
+          '<button onclick="deleteContact(' + c.id + ')" style="padding:5px 12px;border:1px solid var(--red);background:transparent;color:var(--red);border-radius:8px;cursor:pointer;font-size:12px;font-weight:600;">삭제</button>' +
+        '</div>' +
+      '</div>';
+    }).join('');
+  } catch(e) { console.error('Load contacts error:', e); }
+}
+
+// ─── Contacts (tab section) ──
+async function loadContactsTab() {
+  try {
+    var res = await fetch('/api/contacts');
+    var data = await res.json();
+    var contacts = Array.isArray(data) ? data : (data.contacts || []);
+    var el = document.getElementById('contactList');
+    if (!contacts.length) { el.innerHTML = '<div style="text-align:center;padding:60px 20px;color:var(--sub)">문의가 없습니다</div>'; return; }
+    el.innerHTML = contacts.map(function(c) {
+      return '<div style="background:var(--card);border:1px solid ' + (c.read ? 'var(--border)' : 'var(--primary)') + ';border-radius:var(--radius);padding:18px 20px;margin-bottom:10px">' +
+        '<div style="display:flex;justify-content:space-between;align-items:flex-start;gap:12px;margin-bottom:8px">' +
+          '<div>' +
+            '<span style="font-weight:600;font-size:15px">' + esc(c.name) + '</span>' +
+            '<span style="font-size:12px;color:var(--muted);margin-left:8px">#' + c.id + '</span>' +
+            (c.read ? '' : '<span style="background:var(--primary);color:#fff;padding:1px 6px;border-radius:6px;font-size:10px;margin-left:6px">NEW</span>') +
+          '</div>' +
+          '<span style="font-size:12px;color:var(--sub);white-space:nowrap">' + (c.created_at || '') + '</span>' +
+        '</div>' +
+        '<div style="font-size:13px;color:var(--sub);display:flex;gap:14px;flex-wrap:wrap;margin-bottom:6px">' +
+          '<span>📧 ' + esc(c.email) + '</span>' +
+          (c.phone ? '<span>📞 ' + esc(c.phone) + '</span>' : '') +
+          (c.ip ? '<span>🌐 ' + esc(c.ip) + '</span>' : '') +
+        '</div>' +
+        (c.message ? '<div style="font-size:14px;color:var(--ink);line-height:1.5;white-space:pre-wrap;margin-top:8px">' + esc(c.message) + '</div>' : '') +
+        '<div style="display:flex;gap:8px;margin-top:12px">' +
+          (c.read ? '' : '<button onclick="markContactRead(' + c.id + ')" style="padding:5px 12px;border:1px solid var(--border);border-radius:8px;background:var(--card);color:var(--ink);cursor:pointer;font-size:12px">읽음 처리</button>') +
+          '<button onclick="deleteContact(' + c.id + ')" style="padding:5px 12px;border:1px solid #ef4444;border-radius:8px;background:transparent;color:#ef4444;cursor:pointer;font-size:12px">삭제</button>' +
+        '</div>' +
+      '</div>';
+    }).join('');
+  } catch(e) { console.error('Contacts tab load error:', e); }
+}
+
+async function markContactRead(id) {
+  await fetch('/api/contacts/' + id + '/read', { method: 'PATCH' });
+  loadContacts();
+  loadContactsTab();
+}
+
+async function deleteContact(id) {
+  if (!confirm('이 문의를 삭제할까요?')) return;
+  await fetch('/api/contacts/' + id, { method: 'DELETE' });
+  loadContacts();
+  loadContactsTab();
+}
+
+// ── Initial load with auth check ──
+checkAuth().then(function(ok) { if (ok) { loadData(7); loadContacts(); } });
+
+// Auto-refresh every 30s for realtime, full refresh every 90s
+setInterval(function() {
+  fetch('/api/analytics?days=' + currentDays).then(function(r) { return r.json(); }).then(function(d) {
+    document.getElementById('realtimeHeader').textContent = d.realtime ? '🟢 ' + d.realtime + '명 접속 중' : '';
+    var bigEl = document.getElementById('realtimeBig');
+    if (bigEl) bigEl.textContent = (d.realtime || 0).toLocaleString();
+    renderKPIs(d);
+    renderVisitors(d);
+  }).catch(function(){});
+}, 30000);
+
+setInterval(function() { loadData(currentDays); }, 90000);
+</script>
+</body>
+</html>

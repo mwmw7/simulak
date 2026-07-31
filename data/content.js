@@ -94,6 +94,13 @@ module.exports = {
     { seg: "Z세대 · 글로벌", image: "assets/generated/ad-z.webp", grade: "teal", headline: "빛이 되는 순간", ctr: "8.8%", conv: "6.7%", roi: "4.5x" }
   ],
 
+  ui: {
+    navPhilosophy: "철학",
+    heroGhostBtn: "합성 배우 보기 \u2192",
+    philosophyTitle: "복제가 원본을 넘어서는 순간",
+    footerCta: "사람 없는 완벽함을<br />당신의 브랜드에."
+  },
+
   contact: {
     email: "hello@simulak.co",
     socials: ["Instagram", "X / Twitter", "YouTube", "Behance"]

@@ -1,0 +1,15 @@
+{
+  "name": "SIMULAK Entertainment — 사람 없는 완벽함",
+  "short_name": "SIMULAK",
+  "description": "AI 합성 배우, 가상 광고 모델, AI 음악. 현실을 초월하는 AI 엔터테인먼트",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#0c0c0c",
+  "theme_color": "#9B59B6",
+  "icons": [
+    { "src": "/icon-192.png?v=5", "sizes": "192x192", "type": "image/png", "purpose": "any" },
+    { "src": "/icon-512.png?v=5", "sizes": "512x512", "type": "image/png", "purpose": "any" },
+    { "src": "/icon-maskable-192.png?v=5", "sizes": "192x192", "type": "image/png", "purpose": "maskable" },
+    { "src": "/icon-maskable-512.png?v=5", "sizes": "512x512", "type": "image/png", "purpose": "maskable" }
+  ]
+}

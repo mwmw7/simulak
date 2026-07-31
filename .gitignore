@@ -14,3 +14,8 @@ EMAIL.md
 Thumbs.db
 .idea/
 .vscode/
+
+# env & data
+.env
+*.db
+.cloudflared/

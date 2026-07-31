@@ -2,7 +2,7 @@
 (function () {
   "use strict";
 
-  var app = angular.module("simulakApp", []);
+  var app = angular.module("simulakApp", ["ngSanitize"]);
 
   /* ── 메인 컨트롤러 ─────────────────────────────── */
   app.controller("MainController", ["$http", "$scope", "$interval", "$timeout", "AnthemEngine",
@@ -18,16 +18,26 @@
     vm.tIndex = 0;
     vm.target = {};
 
+    // 언어 설정
+    vm.lang = localStorage.getItem('simulak_lang') || (navigator.language.startsWith('ko') ? 'ko' : 'en');
+    vm.toggleLang = function() {
+      vm.lang = vm.lang === 'ko' ? 'en' : 'ko';
+      localStorage.setItem('simulak_lang', vm.lang);
+      loadContent(vm.lang);
+    };
+
     // Express API에서 콘텐츠 로드
-    $http.get("/api/content").then(function (res) {
-      vm.content = res.data;
-      vm.current = vm.content.artists[0] || {};
-      vm.target = (vm.content.targeting && vm.content.targeting[0]) || {};
-      $timeout(function () { vm.loaded = true; }, 450);
-    }, function () {
-      // API 실패 시에도 화면은 뜨도록
-      $timeout(function () { vm.loaded = true; }, 450);
-    });
+    function loadContent(lang) {
+      $http.get("/api/content?lang=" + lang).then(function (res) {
+        vm.content = res.data;
+        vm.current = vm.content.artists[0] || {};
+        vm.target = (vm.content.targeting && vm.content.targeting[0]) || {};
+        $timeout(function () { vm.loaded = true; }, 450);
+      }, function () {
+        $timeout(function () { vm.loaded = true; }, 450);
+      });
+    }
+    loadContent(vm.lang);
 
     /* 플레이어 */
     function onTrackEnded() {
