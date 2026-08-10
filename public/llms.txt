@@ -1,0 +1,11 @@
+# Simulak
+> AI-powered entertainment and content creation platform.
+
+## About
+Simulak is an AI entertainment platform that enables creation of cinematic content using AI actors, artists, and production tools. The platform provides virtual actors and artists for advertising, entertainment, and content production — making professional-quality video content accessible to creators of all sizes.
+
+## Key Pages
+- [Homepage](https://simulak.co/): Platform overview, AI actors & artists showcase, advertising solutions
+- [Actors](https://simulak.co/#actors): AI-generated virtual actors for video content
+- [Artists](https://simulak.co/#artists): AI music and creative artists
+- [Advertising](https://simulak.co/#ads): AI-powered ad creation targeting different demographics

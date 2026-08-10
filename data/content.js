@@ -12,7 +12,7 @@ module.exports = {
     h1sub: "현실을 초월하는 AI 엔터테인먼트의 미래",
     h2: "합성 배우 · 가상 광고 모델 · AI 음악 — 사람 없는 세상의 새로운 즐거움",
     cta: "지금 경험하기",
-    image: "assets/generated/hero.webp",
+    image: "assets/generated/hero.avif",
     video: "assets/video/hero.mp4"
   },
 
@@ -68,14 +68,14 @@ module.exports = {
   ],
 
   synthStars: [
-    { name: "ARIA", role: "Leading Actress", tags: ["Drama", "Fashion", "Cinematic"], image: "assets/generated/actor-aria.webp", video: "assets/video/actor-aria.mp4", status: "AVAILABLE 24/7" },
-    { name: "KAI", role: "Leading Actor", tags: ["Action", "Editorial", "Brand"], image: "assets/generated/actor-kai.webp", video: "assets/video/actor-kai.mp4", status: "AVAILABLE 24/7" },
-    { name: "NOVA", role: "Supermodel", tags: ["Avant-garde", "Runway", "Campaign"], image: "assets/generated/actor-nova.webp", video: "assets/video/actor-nova.mp4", status: "AVAILABLE 24/7" }
+    { name: "ARIA", role: "Leading Actress", tags: ["Drama", "Fashion", "Cinematic"], image: "assets/generated/actor-aria.avif", video: "assets/video/actor-aria.mp4", status: "AVAILABLE 24/7" },
+    { name: "KAI", role: "Leading Actor", tags: ["Action", "Editorial", "Brand"], image: "assets/generated/actor-kai.avif", video: "assets/video/actor-kai.mp4", status: "AVAILABLE 24/7" },
+    { name: "NOVA", role: "Supermodel", tags: ["Avant-garde", "Runway", "Campaign"], image: "assets/generated/actor-nova.avif", video: "assets/video/actor-nova.mp4", status: "AVAILABLE 24/7" }
   ],
 
   artists: [
-    { name: "ECHO", genre: "Synth-Pop / Future Bass", image: "assets/generated/artist-echo.webp", video: "assets/video/artist-echo.mp4", track: "Hollow Light", bpm: 124, audio: "assets/audio/hollow-light.mp3" },
-    { name: "LUMEN", genre: "Ambient / Cinematic", image: "assets/generated/artist-lumen.webp", video: "assets/video/artist-lumen.mp4", track: "Ghost in the Signal", bpm: 92, audio: "assets/audio/perfect-illusion.mp3" }
+    { name: "ECHO", genre: "Synth-Pop / Future Bass", image: "assets/generated/artist-echo.avif", video: "assets/video/artist-echo.mp4", track: "Hollow Light", bpm: 124, audio: "assets/audio/hollow-light.mp3" },
+    { name: "LUMEN", genre: "Ambient / Cinematic", image: "assets/generated/artist-lumen.avif", video: "assets/video/artist-lumen.mp4", track: "Ghost in the Signal", bpm: 92, audio: "assets/audio/perfect-illusion.mp3" }
   ],
 
   metrics: [
@@ -88,10 +88,10 @@ module.exports = {
   // 초개인화 광고 — 하나의 크리에이티브가 오디언스 세그먼트별로 즉시 재렌더링
   // 초개인화 콘솔 전용 신규 얼굴 — 사이트 다른 섹션과 겹치지 않는 독립 인물 4명
   targeting: [
-    { seg: "GEN-Z · 여성", image: "assets/generated/ad-genz-f.webp", grade: "violet", headline: "새벽의 환영", ctr: "8.4%", conv: "6.1%", roi: "4.2x" },
-    { seg: "30대 · 남성", image: "assets/generated/ad-m30.webp", grade: "blue", headline: "완벽한 페르소나", ctr: "7.1%", conv: "5.3%", roi: "3.6x" },
-    { seg: "밀레니얼 · 글로벌", image: "assets/generated/ad-mil.webp", grade: "amber", headline: "경계 없는 아름다움", ctr: "9.2%", conv: "7.4%", roi: "4.8x" },
-    { seg: "Z세대 · 글로벌", image: "assets/generated/ad-z.webp", grade: "teal", headline: "빛이 되는 순간", ctr: "8.8%", conv: "6.7%", roi: "4.5x" }
+    { seg: "GEN-Z · 여성", image: "assets/generated/ad-genz-f.avif", grade: "violet", headline: "새벽의 환영", ctr: "8.4%", conv: "6.1%", roi: "4.2x" },
+    { seg: "30대 · 남성", image: "assets/generated/ad-m30.avif", grade: "blue", headline: "완벽한 페르소나", ctr: "7.1%", conv: "5.3%", roi: "3.6x" },
+    { seg: "밀레니얼 · 글로벌", image: "assets/generated/ad-mil.avif", grade: "amber", headline: "경계 없는 아름다움", ctr: "9.2%", conv: "7.4%", roi: "4.8x" },
+    { seg: "Z세대 · 글로벌", image: "assets/generated/ad-z.avif", grade: "teal", headline: "빛이 되는 순간", ctr: "8.8%", conv: "6.7%", roi: "4.5x" }
   ],
 
   ui: {

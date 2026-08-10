@@ -159,7 +159,7 @@
             if (pr && pr.catch) { pr.catch(function () {}); }
           }
         });
-        // 영상 로드 실패 시 src 제거 → 포스터(webp)만 표시
+        // 영상 로드 실패 시 src 제거 → 포스터(avif)만 표시
         v.addEventListener("error", function () {
           if (v.getAttribute("src")) { v.removeAttribute("src"); try { v.load(); } catch (e) {} }
         }, true);

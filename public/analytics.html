@@ -146,7 +146,7 @@
     <span class="realtime-count" id="realtimeHeader"></span>
   </div>
   <div style="display:flex;gap:10px;align-items:center">
-    <a href="#" onclick="fetch('/api/analytics-auth/logout',{method:'POST'}).then(()=>location.reload());return false">&#xB85C;&#xADF8;&#xC544;&#xC6C3;</a>
+    <a href="#" onclick="fetch('/api/admin/auth/logout',{method:'POST'}).then(()=>location.reload());return false">&#xB85C;&#xADF8;&#xC544;&#xC6C3;</a>
     <a href="/">&#x2190; &#xBA54;&#xC778;&#xC73C;&#xB85C;</a>
     <button id="tabTraffic" class="period-btn active" onclick="switchTab('traffic',this)" style="font-size:12px">&#x1F4CA; &#xD2B8;&#xB798;&#xD53D;</button>
     <button id="tabBugs" class="period-btn" onclick="switchTab('bugs',this)" style="font-size:12px">&#x1F41B; &#xBC84;&#xADF8;&#xB9AC;&#xD3EC;&#xD2B8;</button>
@@ -294,7 +294,7 @@
 // ─── Auth ──
 async function checkAuth() {
   try {
-    var r = await fetch('/api/analytics-auth/check');
+    var r = await fetch('/api/admin/auth/check');
     var d = await r.json();
     if (!d.authenticated) {
       document.getElementById('loginOverlay').style.display = 'flex';
@@ -306,7 +306,7 @@ async function checkAuth() {
 
 async function doLogin(e) {
   e.preventDefault();
-  var r = await fetch('/api/analytics-auth/login', {
+  var r = await fetch('/api/admin/auth/login', {
     method: 'POST',
     headers: {'Content-Type': 'application/json'},
     body: JSON.stringify({
@@ -381,7 +381,7 @@ async function loadData(days, btn) {
   document.querySelectorAll('.controls .period-btn').forEach(function(b) { b.classList.remove('active'); });
   if (btn) btn.classList.add('active');
   try {
-    var r = await fetch('/api/analytics?days=' + days);
+    var r = await fetch('/api/admin/analytics?days=' + days);
     var d = await r.json();
     renderKPIs(d);
     renderTrafficChart(d);
@@ -700,7 +700,7 @@ async function loadBugs(status, btn) {
     btn.classList.add('active');
   }
   try {
-    var r = await fetch('/api/bug-reports?status=' + (status || 'all') + '&limit=100');
+    var r = await fetch('/api/admin/bug-reports?status=' + (status || 'all') + '&limit=100');
     var d = await r.json();
     renderBugKPIs(d.stats);
     renderBugList(d.reports);
@@ -758,7 +758,7 @@ function renderBugList(reports) {
 
 async function updateBugStatus(id, status) {
   try {
-    await fetch('/api/bug-reports/' + id, {
+    await fetch('/api/admin/bug-reports/' + id, {
       method: 'PATCH',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ status: status }),
@@ -777,7 +777,7 @@ async function updateBugStatus(id, status) {
 // ─── Contacts (inline card) ──
 async function loadContacts() {
   try {
-    var res = await fetch('/api/contacts');
+    var res = await fetch('/api/admin/contacts');
     var data = await res.json();
     var contacts = Array.isArray(data) ? data : (data.contacts || []);
     var unread = contacts.filter(function(c) { return !c.read; }).length;
@@ -817,7 +817,7 @@ async function loadContacts() {
 // ─── Contacts (tab section) ──
 async function loadContactsTab() {
   try {
-    var res = await fetch('/api/contacts');
+    var res = await fetch('/api/admin/contacts');
     var data = await res.json();
     var contacts = Array.isArray(data) ? data : (data.contacts || []);
     var el = document.getElementById('contactList');
@@ -848,14 +848,14 @@ async function loadContactsTab() {
 }
 
 async function markContactRead(id) {
-  await fetch('/api/contacts/' + id + '/read', { method: 'PATCH' });
+  await fetch('/api/admin/contacts/' + id + '/read', { method: 'PATCH' });
   loadContacts();
   loadContactsTab();
 }
 
 async function deleteContact(id) {
   if (!confirm('이 문의를 삭제할까요?')) return;
-  await fetch('/api/contacts/' + id, { method: 'DELETE' });
+  await fetch('/api/admin/contacts/' + id, { method: 'DELETE' });
   loadContacts();
   loadContactsTab();
 }
@@ -865,7 +865,7 @@ checkAuth().then(function(ok) { if (ok) { loadData(7); loadContacts(); } });
 
 // Auto-refresh every 30s for realtime, full refresh every 90s
 setInterval(function() {
-  fetch('/api/analytics?days=' + currentDays).then(function(r) { return r.json(); }).then(function(d) {
+  fetch('/api/admin/analytics?days=' + currentDays).then(function(r) { return r.json(); }).then(function(d) {
     document.getElementById('realtimeHeader').textContent = d.realtime ? '🟢 ' + d.realtime + '명 접속 중' : '';
     var bigEl = document.getElementById('realtimeBig');
     if (bigEl) bigEl.textContent = (d.realtime || 0).toLocaleString();

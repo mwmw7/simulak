@@ -232,7 +232,7 @@ app.use(cookieParser());
 // ─── Analytics Auth ────────────────────────────────────────────────────────
 const ANALYTICS_CREDS = { username: 'mwmw7', password: '040201mM~!' };
 
-app.post('/api/analytics-auth/login', (req, res) => {
+app.post('/api/admin/auth/login', (req, res) => {
   const { username, password } = req.body;
   if (username === ANALYTICS_CREDS.username && password === ANALYTICS_CREDS.password) {
     res.cookie('analytics_session', 'simulak_authed_2026', { httpOnly: true, maxAge: 7 * 24 * 60 * 60 * 1000, sameSite: 'lax' });
@@ -241,11 +241,11 @@ app.post('/api/analytics-auth/login', (req, res) => {
   res.status(401).json({ error: '아이디 또는 비밀번호가 올바르지 않습니다' });
 });
 
-app.get('/api/analytics-auth/check', (req, res) => {
+app.get('/api/admin/auth/check', (req, res) => {
   res.json({ authenticated: req.cookies?.analytics_session === 'simulak_authed_2026' });
 });
 
-app.post('/api/analytics-auth/logout', (req, res) => {
+app.post('/api/admin/auth/logout', (req, res) => {
   res.clearCookie('analytics_session');
   res.json({ ok: true });
 });
@@ -294,7 +294,7 @@ app.get(['/favicon.ico', '/favicon-16x16.png', '/favicon-32x32.png', '/apple-tou
 app.use(express.static(path.join(__dirname, "public"), { index: false }));
 
 // === Analytics API & Dashboard ===
-app.get('/api/analytics', (req, res) => {
+app.get('/api/admin/analytics', (req, res) => {
   const days = parseInt(req.query.days) || 7;
   const since = new Date(Date.now() - days * 86400000).toISOString();
   const total = analyticsDb.prepare(`SELECT COUNT(*) as c FROM analytics WHERE created_at >= ?`).get(since).c;
@@ -375,7 +375,7 @@ app.get('/api/analytics', (req, res) => {
   });
 });
 
-app.get('/analytics', (req, res) => {
+app.get('/admin/analytics', (req, res) => {
   res.sendFile(path.join(__dirname, 'public', 'analytics.html'));
 });
 
@@ -404,17 +404,17 @@ app.post('/api/contact', (req, res) => {
   }
 });
 
-app.get('/api/contacts', (req, res) => {
+app.get('/api/admin/contacts', (req, res) => {
   const rows = analyticsDb.prepare('SELECT * FROM contacts ORDER BY id DESC').all();
   res.json(rows);
 });
 
-app.patch('/api/contacts/:id/read', (req, res) => {
+app.patch('/api/admin/contacts/:id/read', (req, res) => {
   analyticsDb.prepare('UPDATE contacts SET read = 1 WHERE id = ?').run(req.params.id);
   res.json({ ok: true });
 });
 
-app.delete('/api/contacts/:id', (req, res) => {
+app.delete('/api/admin/contacts/:id', (req, res) => {
   analyticsDb.prepare('DELETE FROM contacts WHERE id = ?').run(req.params.id);
   res.json({ ok: true });
 });
@@ -462,7 +462,7 @@ app.post('/api/bug-report', async (req, res) => {
   }
 });
 
-app.get('/api/bug-reports', function(req, res) {
+app.get('/api/admin/bug-reports', function(req, res) {
   try {
     const { status, limit, offset } = req.query;
     const reports = getBugReports({ status: status, limit: parseInt(limit) || 50, offset: parseInt(offset) || 0 });
@@ -474,7 +474,7 @@ app.get('/api/bug-reports', function(req, res) {
   }
 });
 
-app.patch('/api/bug-reports/:id', function(req, res) {
+app.patch('/api/admin/bug-reports/:id', function(req, res) {
   try {
     const id = parseInt(req.params.id);
     const { status, admin_note, priority } = req.body || {};

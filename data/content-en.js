@@ -12,7 +12,7 @@ module.exports = {
     h1sub: "The Future of AI Entertainment Beyond Reality",
     h2: "Synthetic Actors · Virtual Ad Models · AI Music — A New Joy in a World Without People",
     cta: "Experience Now",
-    image: "assets/generated/hero.webp",
+    image: "assets/generated/hero.avif",
     video: "assets/video/hero.mp4"
   },
 
@@ -68,14 +68,14 @@ module.exports = {
   ],
 
   synthStars: [
-    { name: "ARIA", role: "Leading Actress", tags: ["Drama", "Fashion", "Cinematic"], image: "assets/generated/actor-aria.webp", video: "assets/video/actor-aria.mp4", status: "AVAILABLE 24/7" },
-    { name: "KAI", role: "Leading Actor", tags: ["Action", "Editorial", "Brand"], image: "assets/generated/actor-kai.webp", video: "assets/video/actor-kai.mp4", status: "AVAILABLE 24/7" },
-    { name: "NOVA", role: "Supermodel", tags: ["Avant-garde", "Runway", "Campaign"], image: "assets/generated/actor-nova.webp", video: "assets/video/actor-nova.mp4", status: "AVAILABLE 24/7" }
+    { name: "ARIA", role: "Leading Actress", tags: ["Drama", "Fashion", "Cinematic"], image: "assets/generated/actor-aria.avif", video: "assets/video/actor-aria.mp4", status: "AVAILABLE 24/7" },
+    { name: "KAI", role: "Leading Actor", tags: ["Action", "Editorial", "Brand"], image: "assets/generated/actor-kai.avif", video: "assets/video/actor-kai.mp4", status: "AVAILABLE 24/7" },
+    { name: "NOVA", role: "Supermodel", tags: ["Avant-garde", "Runway", "Campaign"], image: "assets/generated/actor-nova.avif", video: "assets/video/actor-nova.mp4", status: "AVAILABLE 24/7" }
   ],
 
   artists: [
-    { name: "ECHO", genre: "Synth-Pop / Future Bass", image: "assets/generated/artist-echo.webp", video: "assets/video/artist-echo.mp4", track: "Hollow Light", bpm: 124, audio: "assets/audio/hollow-light.mp3" },
-    { name: "LUMEN", genre: "Ambient / Cinematic", image: "assets/generated/artist-lumen.webp", video: "assets/video/artist-lumen.mp4", track: "Ghost in the Signal", bpm: 92, audio: "assets/audio/perfect-illusion.mp3" }
+    { name: "ECHO", genre: "Synth-Pop / Future Bass", image: "assets/generated/artist-echo.avif", video: "assets/video/artist-echo.mp4", track: "Hollow Light", bpm: 124, audio: "assets/audio/hollow-light.mp3" },
+    { name: "LUMEN", genre: "Ambient / Cinematic", image: "assets/generated/artist-lumen.avif", video: "assets/video/artist-lumen.mp4", track: "Ghost in the Signal", bpm: 92, audio: "assets/audio/perfect-illusion.mp3" }
   ],
 
   metrics: [
@@ -86,10 +86,10 @@ module.exports = {
   ],
 
   targeting: [
-    { seg: "GEN-Z · Female", image: "assets/generated/ad-genz-f.webp", grade: "violet", headline: "Dawn's Illusion", ctr: "8.4%", conv: "6.1%", roi: "4.2x" },
-    { seg: "30s · Male", image: "assets/generated/ad-m30.webp", grade: "blue", headline: "The Perfect Persona", ctr: "7.1%", conv: "5.3%", roi: "3.6x" },
-    { seg: "Millennial · Global", image: "assets/generated/ad-mil.webp", grade: "amber", headline: "Beauty Without Borders", ctr: "9.2%", conv: "7.4%", roi: "4.8x" },
-    { seg: "Gen-Z · Global", image: "assets/generated/ad-z.webp", grade: "teal", headline: "The Moment You Become Light", ctr: "8.8%", conv: "6.7%", roi: "4.5x" }
+    { seg: "GEN-Z · Female", image: "assets/generated/ad-genz-f.avif", grade: "violet", headline: "Dawn's Illusion", ctr: "8.4%", conv: "6.1%", roi: "4.2x" },
+    { seg: "30s · Male", image: "assets/generated/ad-m30.avif", grade: "blue", headline: "The Perfect Persona", ctr: "7.1%", conv: "5.3%", roi: "3.6x" },
+    { seg: "Millennial · Global", image: "assets/generated/ad-mil.avif", grade: "amber", headline: "Beauty Without Borders", ctr: "9.2%", conv: "7.4%", roi: "4.8x" },
+    { seg: "Gen-Z · Global", image: "assets/generated/ad-z.avif", grade: "teal", headline: "The Moment You Become Light", ctr: "8.8%", conv: "6.7%", roi: "4.5x" }
   ],
 
   ui: {
