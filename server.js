@@ -205,6 +205,8 @@ function renderIndex(req, res) {
 app.use(async (req, res, next) => {
   if (req.path === '/' || req.path === '/index.html') {
     const ip = (req.headers['x-forwarded-for'] || '').split(',')[0].trim() || req.ip;
+    const ua = req.headers['user-agent'] || '';
+    if (ip === '127.0.0.1' || ip === '::1' || ua.startsWith('curl')) { return next(); }
     const now = Date.now();
     // Throttle: same IP once per 5 minutes
     if (!visitThrottle[ip] || now - visitThrottle[ip] > 300000) {
