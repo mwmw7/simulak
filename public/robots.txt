@@ -3,6 +3,10 @@ Allow: /
 Disallow: /api/
 Disallow: /analytics
 
+# Naver
+User-agent: Yeti
+Allow: /
+
 # AI Crawlers — allow indexing for AI search/discovery
 User-agent: GPTBot
 Allow: /
@@ -15,9 +19,8 @@ Crawl-delay: 2
 User-agent: Google-Extended
 Allow: /
 
-User-agent: Amazonbot
+User-agent: GoogleOther
 Allow: /
-Crawl-delay: 5
 
 User-agent: anthropic-ai
 Allow: /
@@ -27,10 +30,43 @@ User-agent: ClaudeBot
 Allow: /
 Crawl-delay: 2
 
+User-agent: Claude-Web
+Allow: /
+Crawl-delay: 2
+
+User-agent: PerplexityBot
+Allow: /
+Crawl-delay: 5
+
 User-agent: Bytespider
+Allow: /
 Crawl-delay: 10
 
 User-agent: CCBot
+Allow: /
 Crawl-delay: 10
 
+User-agent: cohere-ai
+Allow: /
+Crawl-delay: 5
+
+User-agent: Meta-ExternalAgent
+Allow: /
+Crawl-delay: 5
+
+User-agent: Amazonbot
+Allow: /
+Crawl-delay: 5
+
+User-agent: YouBot
+Allow: /
+Crawl-delay: 5
+
+User-agent: Applebot-Extended
+Allow: /
+
 Sitemap: https://simulak.co/sitemap.xml
+
+# LLM content files
+# https://simulak.co/llms.txt
+# https://simulak.co/llms-full.txt
