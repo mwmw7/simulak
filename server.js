@@ -221,7 +221,8 @@ app.use(async (req, res, next) => {
       const language = lang;
       getGeoInfo(ip).then(geo => {
         try { analyticsDb.prepare('INSERT INTO analytics (event_type,label,detail,ip,country,city,device,user_agent,referer,path,browser,os,is_bot,language) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?)').run('pageview','','',ip,geo.country||'',geo.city||'',deviceType,ua,referer,req.path,bName,osName,isBot,language); } catch(e){}
-        sendTg(`🎬 <b>Simulak</b> 방문자!\n\n${device}\n🌍 <b>${geo.country || '?'}</b> ${geo.city || ''} ${geo.regionName || ''}\n🏢 ${geo.org || geo.isp || '-'}\n🌐 언어: ${lang}\n🔗 유입: ${referer.length > 60 ? referer.slice(0,60)+'...' : referer}\n📍 IP: <code>${ip}</code>`);
+        // Visitor Telegram notifications disabled — data collected via analytics only
+        // sendTg(`🎬 <b>Simulak</b> 방문자!\n\n${device}\n🌍 <b>${geo.country || '?'}</b> ${geo.city || ''} ${geo.regionName || ''}\n🏢 ${geo.org || geo.isp || '-'}\n🌐 언어: ${lang}\n🔗 유입: ${referer.length > 60 ? referer.slice(0,60)+'...' : referer}\n📍 IP: <code>${ip}</code>`);
       });
     }
   }
