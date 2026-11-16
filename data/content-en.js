@@ -56,6 +56,16 @@ module.exports = {
       ]
     },
     {
+      id: "video-shorts",
+      kicker: "VIDEO SHORTS",
+      name: "AI Short-Form Content",
+      points: [
+        "15–60 second short-form videos starring AI synthetic actors — viral content created instantly without any filming.",
+        "Vertical video optimized for every short-form platform: TikTok, Reels, and YouTube Shorts.",
+        "Infinite remakes tailored to any concept or trending format you need."
+      ]
+    },
+    {
       id: "hyper-ads",
       kicker: "HYPER-TARGETED ADS",
       name: "Hyper-Personalized Advertising",
@@ -76,6 +86,13 @@ module.exports = {
   artists: [
     { name: "ECHO", genre: "Synth-Pop / Future Bass", image: "assets/generated/artist-echo.avif", video: "assets/video/artist-echo.mp4", track: "Hollow Light", bpm: 124, audio: "assets/audio/hollow-light.mp3" },
     { name: "LUMEN", genre: "Ambient / Cinematic", image: "assets/generated/artist-lumen.avif", video: "assets/video/artist-lumen.mp4", track: "Ghost in the Signal", bpm: 92, audio: "assets/audio/perfect-illusion.mp3" }
+  ],
+
+  videoShorts: [
+    { title: "Dawn Monologue", actor: "ARIA", tags: ["Drama", "Mood"], duration: "0:32", image: "assets/generated/actor-aria.avif", video: "assets/video/actor-aria.mp4" },
+    { title: "City Shadows", actor: "KAI", tags: ["Action", "Urban"], duration: "0:28", image: "assets/generated/actor-kai.avif", video: "assets/video/actor-kai.mp4" },
+    { title: "Runway Illusion", actor: "NOVA", tags: ["Fashion", "Runway"], duration: "0:45", image: "assets/generated/actor-nova.avif", video: "assets/video/actor-nova.mp4" },
+    { title: "Hollow Light MV", actor: "ECHO", tags: ["Music", "Synth-Pop"], duration: "0:38", image: "assets/generated/artist-echo.avif", video: "assets/video/artist-echo.mp4" }
   ],
 
   metrics: [

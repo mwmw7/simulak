@@ -145,8 +145,12 @@ function parseUA(ua) {
   ua = ua || '';
   let browser = 'Other', os = 'Other', isBot = 0;
   // Bot detection
-  if (/bot|crawl|spider|slurp|bingpreview|mediapartners|facebookexternalhit|twitterbot|linkedinbot|whatsapp|telegrambot|googlebot|yandex|baidu|duckduck|semrush|ahref|bytespider|gptbot|claudebot/i.test(ua)) {
+  if (/bot|crawl|spider|slurp|bingpreview|mediapartners|facebookexternalhit|twitterbot|linkedinbot|whatsapp|telegrambot|googlebot|yandex|baidu|duckduck|semrush|ahref|bytespider|gptbot|claudebot|ccbot|chatgpt|perplexitybot|cohere-ai/i.test(ua)) {
     isBot = 1;
+  }
+  if (!isBot) {
+    const chromeMatch = ua.match(/Chrome\/(\d+)/);
+    if (chromeMatch && parseInt(chromeMatch[1]) < 100) isBot = 1;
   }
   // Browser
   if (/Edg\//i.test(ua)) browser = 'Edge';
@@ -201,12 +205,25 @@ function renderIndex(req, res) {
   res.type("html").send(html);
 }
 
+function isBotPath(path) {
+  if (!path) return false;
+  const p = path.toLowerCase();
+  const patterns = [
+    'wp-admin', 'wp-login', 'wp-json', 'wp-content', 'wp-includes',
+    'xmlrpc', '.php', '.env', '.git/', 'wordpress', '/cms/', '/press/',
+    '/_next/', '/livewire/', '/feed/', 'readme.html',
+    '.well-known/openid', 'site.webmanifest', '/blog/'
+  ];
+  return patterns.some(pat => p.includes(pat));
+}
+
 // === Visitor tracking middleware ===
 app.use(async (req, res, next) => {
   if (req.path === '/' || req.path === '/index.html') {
     const ip = (req.headers['x-forwarded-for'] || '').split(',')[0].trim() || req.ip;
     const ua = req.headers['user-agent'] || '';
     if (ip === '127.0.0.1' || ip === '::1' || ua.startsWith('curl')) { return next(); }
+    if (isBotPath(req.path)) { return next(); }
     const now = Date.now();
     // Throttle: same IP once per 5 minutes
     if (!visitThrottle[ip] || now - visitThrottle[ip] > 300000) {

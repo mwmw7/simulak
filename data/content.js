@@ -56,6 +56,16 @@ module.exports = {
       ]
     },
     {
+      id: "video-shorts",
+      kicker: "VIDEO SHORTS",
+      name: "AI 숏폼 콘텐츠",
+      points: [
+        "AI 합성 배우가 출연하는 15~60초 숏폼 영상으로, 촬영 없이 바이럴 콘텐츠를 즉시 제작합니다.",
+        "TikTok · Reels · Shorts 등 모든 숏폼 플랫폼에 최적화된 세로 비디오를 제공합니다.",
+        "원하는 컨셉과 트렌드에 맞춰 무한 리메이크가 가능합니다."
+      ]
+    },
+    {
       id: "hyper-ads",
       kicker: "HYPER-TARGETED ADS",
       name: "초개인화 광고",
@@ -76,6 +86,13 @@ module.exports = {
   artists: [
     { name: "ECHO", genre: "Synth-Pop / Future Bass", image: "assets/generated/artist-echo.avif", video: "assets/video/artist-echo.mp4", track: "Hollow Light", bpm: 124, audio: "assets/audio/hollow-light.mp3" },
     { name: "LUMEN", genre: "Ambient / Cinematic", image: "assets/generated/artist-lumen.avif", video: "assets/video/artist-lumen.mp4", track: "Ghost in the Signal", bpm: 92, audio: "assets/audio/perfect-illusion.mp3" }
+  ],
+
+  videoShorts: [
+    { title: "새벽의 독백", actor: "ARIA", tags: ["Drama", "Mood"], duration: "0:32", image: "assets/generated/actor-aria.avif", video: "assets/video/actor-aria.mp4" },
+    { title: "도시의 그림자", actor: "KAI", tags: ["Action", "Urban"], duration: "0:28", image: "assets/generated/actor-kai.avif", video: "assets/video/actor-kai.mp4" },
+    { title: "런웨이 환영", actor: "NOVA", tags: ["Fashion", "Runway"], duration: "0:45", image: "assets/generated/actor-nova.avif", video: "assets/video/actor-nova.mp4" },
+    { title: "Hollow Light MV", actor: "ECHO", tags: ["Music", "Synth-Pop"], duration: "0:38", image: "assets/generated/artist-echo.avif", video: "assets/video/artist-echo.mp4" }
   ],
 
   metrics: [

@@ -2,6 +2,11 @@
 (function() {
   'use strict';
 
+  // --- Admin opt-out: ?notrack sets permanent flag ---
+  if (new URLSearchParams(location.search).has('notrack')) localStorage.setItem('slk_notrack','1');
+  if (new URLSearchParams(location.search).get('notrack') === '0') localStorage.removeItem('slk_notrack');
+  if (localStorage.getItem('slk_notrack') === '1') return;
+
   // --- Session ID ---
   var SESSION_KEY = '_slk_sid';
   var sessionId = sessionStorage.getItem(SESSION_KEY);

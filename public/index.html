@@ -190,6 +190,7 @@
       <a href="#philosophy" smooth-scroll>{{ vm.content.ui.navPhilosophy }}</a>
       <a href="#stars" smooth-scroll>Synth Stars</a>
       <a href="#anthems" smooth-scroll>A.I. Anthems</a>
+      <a href="#shorts" smooth-scroll>Shorts</a>
       <a href="#ads" smooth-scroll>Ads</a>
     </nav>
     <a href="#contact" class="nav__cta" smooth-scroll>{{ vm.content.hero.cta }}</a>
@@ -322,14 +323,42 @@
     </ul>
   </section>
 
+  <!-- VIDEO SHORTS -->
+  <section id="shorts" class="section section--shorts" aria-label="AI Video Shorts">
+    <div class="section__head" reveal>
+      <span class="section__kicker">{{ vm.content.services[2].kicker }}</span>
+      <h2 class="section__title">{{ vm.content.services[2].name }}</h2>
+      <ul class="section__points">
+        <li ng-repeat="pt in vm.content.services[2].points">{{ pt }}</li>
+      </ul>
+    </div>
+    <div class="shorts-grid">
+      <article class="short" ng-repeat="s in vm.content.videoShorts" reveal>
+        <div class="short__media">
+          <media-loop poster="{{ s.image }}" src="{{ s.video }}"></media-loop>
+          <div class="short__overlay">
+            <span class="short__badge">{{ s.duration }}</span>
+            <div class="short__meta">
+              <span class="short__actor">{{ s.actor }}</span>
+              <h3 class="short__title">{{ s.title }}</h3>
+              <div class="short__tags">
+                <span ng-repeat="t in s.tags">{{ t }}</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </article>
+    </div>
+  </section>
+
   <!-- HYPER-TARGETED ADS -->
   <section id="ads" class="section section--ads" aria-label="Hyper-targeted AI advertising">
     <div class="ads-wrap" reveal>
       <div class="ads-copy">
-        <span class="section__kicker">{{ vm.content.services[2].kicker }}</span>
-        <h2 class="section__title">{{ vm.content.services[2].name }}</h2>
+        <span class="section__kicker">{{ vm.content.services[3].kicker }}</span>
+        <h2 class="section__title">{{ vm.content.services[3].name }}</h2>
         <ul class="section__points">
-          <li ng-repeat="pt in vm.content.services[2].points">{{ pt }}</li>
+          <li ng-repeat="pt in vm.content.services[3].points">{{ pt }}</li>
         </ul>
         <a href="#contact" class="btn btn--primary" smooth-scroll>캠페인 시작하기</a>
       </div>

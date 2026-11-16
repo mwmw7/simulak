@@ -249,6 +249,22 @@ video.hero__img { animation: none; transform: none; } /* Seedance 모션이 이�
 .player__list-item .t { font-weight: 600; }
 .player__list-item .a { margin-left: auto; font-size: 12px; color: var(--ink-faint); letter-spacing: 0.1em; }
 
+/* ── VIDEO SHORTS ─────────────────────────────── */
+.shorts-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 18px; }
+.short { position: relative; border-radius: 16px; overflow: hidden; border: 1px solid var(--line); background: var(--bg-2); }
+.short__media { position: relative; aspect-ratio: 9/16; overflow: hidden; background: radial-gradient(70% 50% at 50% 40%, rgba(155,89,182,0.25), #100c16 70%); }
+.short__media img, .short__media video { width: 100%; height: 100%; object-fit: cover; transition: transform 0.7s var(--ease), filter 0.5s; filter: brightness(0.92); }
+.short:hover .short__media img, .short:hover .short__media video { transform: scale(1.05); filter: brightness(1); }
+.short__overlay { position: absolute; inset: 0; z-index: 2; display: flex; flex-direction: column; justify-content: space-between; padding: 14px; pointer-events: none; }
+.short__badge { align-self: flex-end; font-size: 11px; letter-spacing: 0.08em; font-weight: 600; color: #fff; background: rgba(0,0,0,0.55); padding: 5px 10px; border-radius: 100px; backdrop-filter: blur(6px); border: 1px solid rgba(255,255,255,0.12); }
+.short__meta { background: linear-gradient(to top, rgba(12,12,12,0.92) 40%, transparent); margin: -14px; padding: 40px 14px 14px; }
+.short__actor { font-size: 11px; letter-spacing: 0.2em; color: var(--violet-hi); }
+.short__title { font-family: "Raleway"; font-weight: 800; font-size: 18px; line-height: 1.2; margin: 4px 0 8px; }
+.short__tags { display: flex; gap: 6px; flex-wrap: wrap; }
+.short__tags span { font-size: 10px; color: var(--ink-dim); border: 1px solid var(--line); padding: 3px 9px; border-radius: 100px; }
+.short__media::after { content: "▶"; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); z-index: 3; font-size: 36px; color: rgba(255,255,255,0.7); text-shadow: 0 2px 20px rgba(0,0,0,0.5); opacity: 0; transition: opacity 0.3s var(--ease); pointer-events: none; }
+.short:hover .short__media::after { opacity: 1; }
+
 /* ── HYPER-TARGETED ADS ────────────────────────── */
 .ads-wrap { display: grid; grid-template-columns: 1fr 1fr; gap: 48px; align-items: center; }
 .ads-copy .btn { margin-top: 30px; }
@@ -311,6 +327,7 @@ video.hero__img { animation: none; transform: none; } /* Seedance 모션이 이�
   .hero__media { order: -1; height: 46vh; }
   .metrics { grid-template-columns: repeat(2, 1fr); }
   .phil-grid, .stars-grid { grid-template-columns: 1fr; }
+  .shorts-grid { grid-template-columns: repeat(2, 1fr); }
   .player { grid-template-columns: 1fr; }
   .player__art { max-width: 240px; }
   .ads-wrap { grid-template-columns: 1fr; }
