@@ -1,47 +1,46 @@
 # ◈ SIMULACRA ENTERTAINMENT
 
-> 사람 없는 완벽함 — 합성 배우 · 가상 광고 모델 · AI 음악.
-> 현실을 초월하는 AI 엔터테인먼트 랜딩 페이지.
+> Perfection beyond the human — synthetic actors, virtual advertising models, and AI music.
+> An AI entertainment landing page that transcends reality.
 
-**AngularJS 1.8 (프론트엔드) + Express (서버)** 로 만든 원페이지 사이트입니다.
-모든 비주얼 에셋(합성 배우 ARIA/KAI/NOVA, 가상 가수 ECHO/LUMEN, 히어로)은
-**Higgsfield GPT Image 2** 로 생성했습니다.
+A single-page website built with **AngularJS 1.8 (frontend) and Express (server)**.
+All visual assets—including synthetic actors ARIA, KAI, and NOVA, virtual singers ECHO and LUMEN, and the hero image—were generated with **Higgsfield GPT Image 2**.
 
-## 실행
+## Getting Started
 
 ```bash
 npm install
-npm start            # 기본 http://localhost:3000
-PORT=4173 npm start  # 포트 지정
+npm start            # Default: http://localhost:3000
+PORT=4173 npm start  # Use a custom port
 ```
 
-## 구조
+## Project Structure
 
 ```
-server.js                 Express 서버 (정적 서빙 + /api/content, /api/health)
-data/content.js           사이트 콘텐츠 데이터 (서버가 API로 제공)
+server.js                 Express server: static files, /api/content, and /api/health
+data/content.js           Site content served through the API
 public/
-  index.html              AngularJS 앱 마크업
-  css/styles.css          다크 프리미엄 테마 (violet/amber/blue)
-  js/app.js               컨트롤러 · reveal/smooth-scroll 디렉티브 · Web Audio 음원 엔진
-  assets/generated/       Higgsfield 생성 이미지 (webp 최적화본)
-assets-src/               원본 고해상도 PNG (서빙 안 함, 소스 보관용)
+  index.html              AngularJS application markup
+  css/styles.css          Premium dark theme in violet, amber, and blue
+  js/app.js               Controller, reveal/smooth-scroll directives, and Web Audio sound engine
+  assets/generated/       Higgsfield-generated images, optimized as WebP
+assets-src/               Original high-resolution PNG files, retained as source assets and not served
 ```
 
-## 특징
+## Features
 
-- **콘텐츠 API**: Express가 `/api/content` 로 데이터를 주고 AngularJS `$http` 가 소비.
-- **합성 배우 포트폴리오**: 호버 시 정보/태그 전개.
-- **A.I. Anthems 플레이어**: 재생 버튼을 누르면 **Web Audio API** 로 트랙별 합성 앰비언트 사운드를 실제로 생성·재생 (오디오 파일 불필요). 웨이브폼은 재생 상태에 반응.
-- **스크롤 리빌 / 켄번스 / 글로우 오브 / 필름 그레인** 등 모션 디테일.
-- 완전 반응형 (데스크톱 / 모바일).
+- **Content API:** Express serves data through `/api/content`, consumed by AngularJS `$http`.
+- **Synthetic actor portfolios:** Reveal information and tags on hover.
+- **A.I. Anthems player:** Pressing play uses the **Web Audio API** to synthesize and play a distinct ambient soundscape for each track. No audio files are required, and the waveform responds to playback state.
+- Motion details including **scroll reveals, Ken Burns effects, glowing orbs, and film grain**.
+- Fully responsive layouts for desktop and mobile.
 
 ### QA
 
-`?reveal=all` 쿼리스트링을 붙이면 스크롤 애니메이션 없이 전 섹션을 즉시 노출합니다 (스크린샷·검수용).
+Append `?reveal=all` to the URL to reveal every section immediately without scroll animations, making screenshots and visual inspection easier.
 
-## 에셋 재생성
+## Regenerating Assets
 
 ```bash
-bash .gen/run.sh   # Higgsfield CLI 로 6종 이미지 재생성 (인증 필요)
+bash .gen/run.sh   # Regenerate six images with the Higgsfield CLI; authentication required
 ```
